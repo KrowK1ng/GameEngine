@@ -35,10 +35,20 @@ int Renderer::CreateWindow(char* _title, int _xpos, int _ypos, int _width, int _
 	
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
+
+	hnode = new snode;
+	hnode->depth = 0;
 	return 1;
 }
 
 void Renderer::RenderWindow(){
+	tempnode = hnode->next;
+	while(tempnode){
+		tempnode->sprite->draw();				//Draw Object
+		prevnode = tempnode = tempnode->next;
+		delete prevnode;						//Clear List
+	}
+
 	SDL_RenderPresent(renderer);
 
 	return;
@@ -48,4 +58,33 @@ void Renderer::CloseWindow(){
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
+}
+
+void Renderer::AddSpriteToRender(int _depth,bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect* _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip){
+	RenderSprite *tempSprite = new RenderSprite( _isComp, _tex, _sRect,  _dRect, _ang, _offset, _flip);
+	if(hnode->next){							//Checks if a sprite was already added
+		tempnode = hnode->next;
+		prevnode = hnode;
+		while(tempnode){
+			if(tempnode->depth > _depth){		//If the sprite must be showed firts
+				tempnode = new snode;
+				tempnode->sprite = tempSprite;
+				tempnode->depth = _depth;
+				tempnode->next = prevnode->next;
+				prevnode->next = tempnode;
+				return;
+			}
+			prevnode = tempnode;
+			tempnode = tempnode->next;
+		}
+		tempnode = new snode;					// If the sprite is at the end of the list
+		tempnode->sprite = tempSprite;
+		tempnode->depth = _depth;
+		prevnode->next = tempnode;
+	}else{										//Adds first sprite
+		tempnode = new snode;
+		hnode->next = tempnode;
+		tempnode->depth = _depth;
+		tempnode->sprite = tempSprite;
+	}
 }

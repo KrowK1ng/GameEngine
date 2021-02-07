@@ -16,8 +16,8 @@ class Game {
 		void clean();
 		
 		bool running(){return isRunning;}
+		static Renderer *renderer;
 	private : 
 		bool isRunning;
-		Renderer *renderer;
 };
 #endif

@@ -31,7 +31,7 @@ void Game::update(){
 
 void Game::render(){
 	// Clear Render
-	SDL_RenderClear(renderer->GetRenderer());
+	SDL_RenderClear(Renderer::renderer);
 
 	// Prepare render
 	
