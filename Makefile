@@ -11,17 +11,11 @@ SRCS := main.cpp
 EXEC := out
 
 
-all: main.o renderer.o game.o texturemanager.o
-	$(CC) $(CFLAGS) -o $(EXEC) renderer.o main.o game.o texturemanager.o
+all: main.o renderer.o game.o texturemanager.o sprite.o object.o
+	$(CC) $(CFLAGS) -o $(EXEC) renderer.o main.o game.o texturemanager.o sprite.o object.o
 
-main.o: main.cpp
-	$(CC) $(CFLAGS) -c main.cpp
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $<
 
-game.o: game.cpp
-	$(CC) $(CFLAGS) -c game.cpp
-
-renderer.o: renderer.cpp
-	$(CC) $(CFLAGS) -c renderer.cpp
-
-texturemanager.o: texturemanager.cpp
-	$(CC) $(CFLAGS) -c texturemanager.cpp
+clean: 
+	rm -rf *.o 

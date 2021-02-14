@@ -2,6 +2,7 @@
 #define GAME_HPP
 
 #include "gamelibs.h"
+#include "object.h"
 #include "renderer.h"
 
 class Game {
@@ -16,7 +17,8 @@ class Game {
 		void clean();
 		
 		bool running(){return isRunning;}
-		static Renderer *renderer;
+		static Renderer* renderer;
+		ObjectManager* obj_manager;
 	private : 
 		bool isRunning;
 };

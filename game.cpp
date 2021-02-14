@@ -1,16 +1,25 @@
 #include "game.h"
-#include "renderer.h"
-#include <SDL2/SDL_events.h>
-#include <SDL2/SDL_render.h>
 
 Game::Game(){}
 Game::~Game(){}
+Renderer* Game::renderer;
 
 void Game::init(char* _title, int _xpos, int _ypos, int _width, int _height, bool _fullscreen){
 	renderer = new Renderer();
 	if(renderer->CreateWindow(_title, _xpos, _ypos, _width, _height, _fullscreen)){
 		isRunning = true;
+		std::cout << "Worked" ;
 	}
+	//Temp
+	obj_manager = new ObjectManager();
+	Object* tempobj = new Object(10,10);
+	tempobj->depth = 3;
+	tempobj->AddSprite("assets/spritesheet.png",  16, 16, 32, 0, 0, 0);
+	obj_manager->AddObject(tempobj);
+	tempobj = new Object(10,15);
+	tempobj->depth = 5;
+	tempobj->AddSprite("assets/spritesheet.png",  16, 16, 0, 0, 0, 0);
+	obj_manager->AddObject(tempobj);
 }
 
 void Game::input(){
@@ -34,7 +43,7 @@ void Game::render(){
 	SDL_RenderClear(Renderer::renderer);
 
 	// Prepare render
-	
+	obj_manager->Draw();
 	// Render
 	renderer->RenderWindow();
 	return;

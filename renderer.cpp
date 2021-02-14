@@ -2,6 +2,9 @@
 
 using namespace std;
 
+SDL_Renderer* Renderer::renderer;
+Renderer* Renderer::self;
+
 Renderer::Renderer(){}
 
 int Renderer::CreateWindow(char* _title, int _xpos, int _ypos, int _width, int _height, bool _fullscreen){
@@ -35,7 +38,7 @@ int Renderer::CreateWindow(char* _title, int _xpos, int _ypos, int _width, int _
 	
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
-
+	self = this;
 	hnode = new snode;
 	hnode->depth = 0;
 	return 1;
@@ -45,9 +48,11 @@ void Renderer::RenderWindow(){
 	tempnode = hnode->next;
 	while(tempnode){
 		tempnode->sprite->draw();				//Draw Object
-		prevnode = tempnode = tempnode->next;
+		prevnode = tempnode;
+		tempnode = tempnode->next;
 		delete prevnode;						//Clear List
 	}
+	hnode->next = nullptr;
 
 	SDL_RenderPresent(renderer);
 

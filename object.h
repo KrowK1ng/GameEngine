@@ -3,6 +3,25 @@
 #include "sprite.h"
 #include "gamelibs.h"
 
+class ObjectManager;
+class Object;
+
+class ObjectManager{
+	
+	public:
+		ObjectManager();
+		~ObjectManager();
+		struct onode{					//Node of an object
+			Object* object;
+			onode* prev = nullptr;
+			onode* next = nullptr;
+		}* hnode,* lastnode,* tempnode;
+		void AddObject(Object* _point);
+		void DestroyObject(onode* _id);
+		void Step();
+		void Draw();
+};
+
 class Object{
 	
 	public:
@@ -12,9 +31,9 @@ class Object{
 		virtual void Step();
 		virtual void Draw();
 
-		int x, y;
+		int x, y, depth;
+		ObjectManager::onode* id;
 		Sprite* sprite = nullptr; 
 
 };
-
 #endif

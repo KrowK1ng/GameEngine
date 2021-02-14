@@ -15,6 +15,7 @@ class Renderer {
 		void AddSpriteToRender(int _depth,bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect* _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip);
 		//static void Render();
 		static SDL_Renderer* renderer;
+		static Renderer* self;
 	private :
 		SDL_Window* window;
 		struct snode{
