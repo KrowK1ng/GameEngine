@@ -4,6 +4,8 @@ Object::Object(int _x, int _y)
 	: x(_x), y(_y), depth(0)
 {}
 
+Object::~Object(){}
+
 void Object::AddSprite(const char* _source, int _w, int _h, int _x, int _y, int _xoff, int _yoff){
 	sprite = new Sprite(_source, _w, _h, _x, _y, _xoff, _yoff);
 	sprite->depth = depth;
@@ -17,6 +19,10 @@ void Object::Draw(){
 	sprite->Render(x, y);
 }
 
+void Object::Destroy(){
+	delete this;
+}
+
 ObjectManager::ObjectManager(){
 	hnode = nullptr;
 	lastnode = nullptr;
@@ -27,7 +33,7 @@ ObjectManager::~ObjectManager(){
 	while(tempnode){
 		lastnode = tempnode;
 		tempnode = tempnode->next;
-		delete lastnode->object;
+		lastnode->object->Destroy();
 		delete lastnode;
 	}
 }
@@ -62,7 +68,7 @@ void ObjectManager::DestroyObject(onode *_id){
 			_id->prev->next = _id->next;
 		}
 	}
-	delete _id->object;
+	_id->object->Destroy();
 	delete _id;
 }
 

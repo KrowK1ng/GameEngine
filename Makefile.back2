@@ -2,7 +2,7 @@
 CC := g++
 
 # Flags
-CFLAGS := `sdl2-config --libs` -lSDL2_image -lm -Wall
+CFLAGS := `sdl2-config --libs` -lSDL2_image -lm
 
 # Source file
 ENGS := $(shell ls engine/temp/*.o)
@@ -13,10 +13,10 @@ TEMPDIR := temp/
 INCDIR := include/
 
 default: $(ENGS)
-	$(CC) $(CFLAGS) -I$(INCDIR) $(ENGS) src/main.cpp -o $(EXEC)
+	$(CC) $(CFLAGS) $(ENGS) src/main.cpp -o $(EXEC)
 
 $(TEMPDIR)%.o: src/%.cpp
-	$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean: 
 	rm -rf $(TEMPDIR)*.o 
