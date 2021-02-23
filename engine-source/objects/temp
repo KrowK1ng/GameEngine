@@ -1,0 +1,8 @@
+#include "../object.h"
+
+namespace object{
+	Object* CreateObject(std::string name, int x, int y){
+		std::cout << "Unable to find " << name << ". Look again at object name." << std::endl;
+		return new Object(x,y);
+	}
+}

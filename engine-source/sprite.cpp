@@ -26,5 +26,6 @@ void Sprite::Render(int _x, int _y){
 void Sprite::Render(int _x, int _y, int _depth){
 	dRect->x = _x;
 	dRect->y = _y;
-	Renderer::self->AddSpriteToRender(_depth, false, texture, sRect, dRect, 0,  nullptr, SDL_FLIP_NONE);
+	SDL_Rect *tempRect = new SDL_Rect(*dRect);
+	Renderer::self->AddSpriteToRender(_depth, false, texture, sRect, tempRect , 0,  nullptr, SDL_FLIP_NONE);
 }

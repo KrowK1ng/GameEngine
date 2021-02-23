@@ -4,6 +4,7 @@
 #include "gamelibs.h"
 #include "object.h"
 #include "renderer.h"
+#include "room.h"
 
 class Game {
 	public:
@@ -18,7 +19,8 @@ class Game {
 		
 		bool running(){return isRunning;}
 		static Renderer* renderer;
-		ObjectManager* obj_manager;
+		static Game* self;
+		Room* current_room = nullptr;
 	private : 
 		bool isRunning;
 };

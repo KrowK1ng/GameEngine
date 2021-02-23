@@ -1,8 +1,11 @@
 #include "object.h"
+#include <cstdio>
 
 Object::Object(int _x, int _y)
 	: x(_x), y(_y), depth(0)
-{}
+{
+	printf("Object created on %d %d\n", _x, _y);
+}
 
 Object::~Object(){}
 
@@ -48,6 +51,7 @@ void ObjectManager::AddObject(Object* _point){
 		lastnode->next->prev = lastnode;
 		lastnode->next->object = _point;
 	}
+	_point->Start();
 }
 
 void ObjectManager::DestroyObject(onode *_id){

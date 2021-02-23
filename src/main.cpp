@@ -2,6 +2,7 @@
 #include "engine.h"
 
 int main(){
-	//Engine* eng = new Engine();
-	Engine::StartGame( nullptr, 30, 480, 480, false);
+	std::cout << "start main" << std::endl;
+	engine::StartGame( nullptr, 30, 480, 480, false);
+	std::cout << "ended main";
 }

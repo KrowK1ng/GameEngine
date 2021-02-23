@@ -3,15 +3,17 @@
 Game::Game(){}
 Game::~Game(){}
 Renderer* Game::renderer;
+Game* Game::self;
 
 void Game::init(char* _title, int _xpos, int _ypos, int _width, int _height, bool _fullscreen){
 	renderer = new Renderer();
 	if(renderer->CreateWindow(_title, _xpos, _ypos, _width, _height, _fullscreen)){
 		isRunning = true;
-		std::cout << "Worked" ;
+		std::cout << "Window Created succesefuly.\n" ;
 	}
+	current_room = nullptr;
 	//Temp
-	obj_manager = new ObjectManager();
+	/*obj_manager = new ObjectManager();
 	Object* tempobj = new Object(10,10);
 	tempobj->depth = 3;
 	tempobj->AddSprite("assets/spritesheet.png",  16, 16, 32, 0, 0, 0);
@@ -19,7 +21,10 @@ void Game::init(char* _title, int _xpos, int _ypos, int _width, int _height, boo
 	tempobj = new Object(10,15);
 	tempobj->depth = 5;
 	tempobj->AddSprite("assets/spritesheet.png",  16, 16, 0, 0, 0, 0);
-	obj_manager->AddObject(tempobj);
+	obj_manager->AddObject(tempobj);*/
+	current_room = new Room("assets/rooms/room0");
+	//Singleton
+	self = this;
 }
 
 void Game::input(){
@@ -36,6 +41,8 @@ void Game::input(){
 }
 
 void Game::update(){
+	if (current_room)
+		current_room->update();
 }
 
 void Game::render(){
@@ -43,7 +50,9 @@ void Game::render(){
 	SDL_RenderClear(Renderer::renderer);
 
 	// Prepare render
-	obj_manager->Draw();
+	if (current_room)
+		current_room->render();
+	//obj_manager->Draw();
 	// Render
 	renderer->RenderWindow();
 	return;

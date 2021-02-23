@@ -2,6 +2,9 @@
 #define GAMELIBS_H
 
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <cstdio>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_image.h>

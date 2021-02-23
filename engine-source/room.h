@@ -6,14 +6,13 @@
 
 class Room {
 	public:
-		Room();
+		Room(char* path);
 		~Room();
 
-		virtual void start();
-		virtual void update();
-		virtual void render();
+		void update();
+		void render();
 
-		ObjectManager* obj_manager;
+		ObjectManager* obj_manager = nullptr;
 		int width, height;
 };
 

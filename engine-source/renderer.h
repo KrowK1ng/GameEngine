@@ -31,7 +31,9 @@ class RenderSprite {
 		RenderSprite(bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect* _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip)
 			: isComplex(_isComp), texture(_tex), sRect(_sRect), dRect(_dRect), angle(_ang), offset(_offset), flipFlag(_flip)
 		{};
-		~RenderSprite(){};
+		~RenderSprite(){
+			delete dRect;
+		}
 		void draw(){
 			if(isComplex){
 				SDL_RenderCopyEx(Renderer::renderer, texture, sRect, dRect, angle, offset, flipFlag);
