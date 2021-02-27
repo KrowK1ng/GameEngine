@@ -30,6 +30,34 @@ Room::Room(char* path){
 	std::cout << "Created room with size " << width << " " << height << std::endl;
 }
 
+Room::Room(std::string path){
+	obj_manager = new ObjectManager();
+	std::ifstream source;
+	source.open(path);
+	if (!source.is_open()){
+		std::cout << "Unable to open" << path ;
+		exit(1);
+	}
+	std::string line;
+	std::getline(source, line);
+	width = std::stoi(line.substr(0,line.find_first_of(' ')));
+	height = std::stoi(line.substr(line.find_first_of(' '), line.length() - 2));
+	Object* temp;
+	std::string name;
+	int x;
+	int y;
+	while (std::getline(source,line)){
+		name = line.substr(0,line.find_first_of(' '));
+		x = std::stoi(line.substr(line.find_first_of(' ') + 1, line.find(' ',line.find_first_of(' ') + 1)));
+		y = std::stoi(line.substr(line.find(' ',line.find_first_of(' ') + 1), line.length() - 1));
+		temp = object::CreateObject(name, x, y);
+		std::cout << "TEMP TEXT\n";
+		obj_manager->AddObject(temp);
+	}
+	source.close();
+	std::cout << "Created room with size " << width << " " << height << std::endl;
+}
+
 Room::~Room(){
 	//delete obj_manager;
 	delete obj_manager;

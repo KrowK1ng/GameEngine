@@ -6,7 +6,10 @@
 
 namespace engine{
 	void StartGame(char* title, int fps, int screen_w, int screen_h, bool fullscreen);
-	void ChangeRoom(char* relative_path);
+	void ChangeRoom(std::string relative_path);
+	void EngineStep();
+
+	int GetFPS();
 };
 
 #endif

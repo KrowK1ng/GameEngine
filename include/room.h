@@ -7,6 +7,7 @@
 class Room {
 	public:
 		Room(char* path);
+		Room(std::string path);
 		~Room();
 
 		void update();
