@@ -5,6 +5,7 @@
 #include "object.h"
 #include "renderer.h"
 #include "room.h"
+#include "input.h"
 
 class Game {
 	public:
@@ -20,6 +21,7 @@ class Game {
 		bool running(){return isRunning;}
 		static Renderer* renderer;
 		static Game* self;
+		Input* InputManager;
 		Room* current_room = nullptr;
 	private : 
 		bool isRunning;

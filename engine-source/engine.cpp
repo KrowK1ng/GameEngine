@@ -1,4 +1,5 @@
 #include "engine.h"
+#include "input.h"
 
 namespace engine {
 
@@ -59,5 +60,17 @@ namespace engine {
 
 	int GetFPS(){
 		return FPS;
+	}
+
+	bool GetKey(SDL_Scancode scanCode){
+		return Input::Instance()->KeyDown(scanCode);
+	}
+
+	bool GetKeyPressed(SDL_Scancode scanCode){
+		return Input::Instance()->KeyPressed(scanCode);
+	}
+
+	bool GetKeyReleased(SDL_Scancode scanCode){
+		return Input::Instance()->KeyReleased(scanCode);
 	}
 }

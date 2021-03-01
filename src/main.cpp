@@ -3,6 +3,6 @@
 
 int main(){
 	std::cout << "start main" << std::endl;
-	engine::StartGame( nullptr, 30, 480, 480, false);
+	engine::StartGame( nullptr, 30, 512, 512, false);
 	std::cout << "ended main";
 }

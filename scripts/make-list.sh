@@ -1,6 +1,7 @@
 #!/bin/sh
 
-file="$1"
+file="object_manager.h"
+cppfile="object_manager.cpp"
 
 make_includes(){
 	find src/objects | sed -n "/.h$/p" | while read in
@@ -14,7 +15,7 @@ make_list(){
 	do
 		sed -n "/class/p" "$in" | sed "s/.*class\s*//;s/\s*:.*//" | while read name
 		do
-			printf "\t\tif (name == \"%s\") return new %s(x,y);\n" $name $name >> "$file"
+			printf "\t\tif (name == \"%s\") return new %s(x,y);\n" $name $name >> "$cppfile"
 		done
 	done
 } 
@@ -26,16 +27,28 @@ delete_files(){
 	done
 }
 
+rm -rf include/objects/*
+
+
 printf "#include \"gengine.h\"\n" >> "$file"
 make_includes
 printf "\nnamespace object{\n" >> "$file"
-printf "\tObject* CreateObject(std::string name, int x, int y){\n" >> "$file"
-make_list
-printf "\t\tstd::cout << \"Unable to find \" << name << \". Look again at object name.\" << std::endl;\n" >> "$file"
-printf "\t\treturn new Object(x,y);\n" >> "$file"
-printf "\t}\n" >> "$file"
+printf "\tObject* CreateObject(std::string name, int x, int y);\n" >> "$file"
 printf "}\n" >> "$file"
-
 mv "$file" include/objects/"$file"
+
+# object_control.cpp
+
+printf "#include \"%s\"\n" "$file" >> "$cppfile"
+printf "\nnamespace object{\n" >> "$cppfile"
+printf "\tObject* CreateObject(std::string name, int x, int y){\n" >> "$cppfile"
+make_list
+printf "\t\tstd::cout << \"Unable to find \" << name << \". Look again at object name.\" << std::endl;\n" >> "$cppfile"
+printf "\t\treturn new Object(x,y);\n" >> "$cppfile"
+printf "\t}\n" >> "$cppfile"
+printf "}\n" >> "$cppfile"
+mv "$cppfile" include/objects/"$cppfile"
+
+
 cp -r src/objects include/objects/objects
 delete_files

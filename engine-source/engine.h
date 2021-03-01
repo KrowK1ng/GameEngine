@@ -10,6 +10,11 @@ namespace engine{
 	void EngineStep();
 
 	int GetFPS();
+
+	//Input
+	bool GetKey(SDL_Scancode scanCode);
+	bool GetKeyPressed(SDL_Scancode scanCode);
+	bool GetKeyReleased(SDL_Scancode scanCode);
 };
 
 #endif

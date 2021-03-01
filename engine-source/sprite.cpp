@@ -1,6 +1,6 @@
 #include "sprite.h"
 
-Sprite::Sprite(const char* _source, int _w, int _h, int _x, int _y, int _xoff, int _yoff) {
+Sprite::Sprite(const char* _source, int _w, int _h, int _x, int _y, int _xoff, int _yoff, int _scale) {
 	sRect = new SDL_Rect();
 	dRect = new SDL_Rect();
 	offset = new SDL_Point();
@@ -13,8 +13,9 @@ Sprite::Sprite(const char* _source, int _w, int _h, int _x, int _y, int _xoff, i
 	offset->y = _yoff;
 	dRect->x = 0;
 	dRect->y = 0;
-	dRect->w = _w;
-	dRect->h = _h;
+	scale = _scale;
+	dRect->w = _w * _scale;
+	dRect->h = _h * _scale;
 	depth = 0;
 	scale = 1;
 }

@@ -11,6 +11,7 @@ void Game::init(char* _title, int _xpos, int _ypos, int _width, int _height, boo
 		isRunning = true;
 		std::cout << "Window Created succesefuly.\n" ;
 	}
+	InputManager = Input::Instance();
 	current_room = nullptr;
 	//Temp
 	/*obj_manager = new ObjectManager();
@@ -28,6 +29,9 @@ void Game::init(char* _title, int _xpos, int _ypos, int _width, int _height, boo
 }
 
 void Game::input(){
+
+	InputManager->Update();
+
 	SDL_Event event;
 	SDL_PollEvent(&event);
 	switch (event.type) {
@@ -60,5 +64,7 @@ void Game::render(){
 
 void Game::clean(){
 	renderer->CloseWindow();
+	delete InputManager;
+	delete renderer;
 	isRunning = false;
 }
