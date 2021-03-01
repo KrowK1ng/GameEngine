@@ -12,6 +12,7 @@ Input::Input(){
 	for(int i = 0;i < 200; i++){
 		LastKeyboardState[i] = up;
 	}
+	InputMouse::Instance();
 }
 
 Input::~Input(){
@@ -39,6 +40,7 @@ void Input::Update(){
 			}
 		}
 	}
+	InputMouse::Instance()->Update();
 }
 
 int Input::ComplexKey(SDL_Scancode scanCode){
@@ -51,4 +53,42 @@ bool Input::KeyPressed(SDL_Scancode scanCode){
 
 bool Input::KeyReleased(SDL_Scancode scanCode){
 	return (LastKeyboardState[scanCode] == released);
+}
+
+InputMouse* InputMouse::sInstance = nullptr;
+
+InputMouse* InputMouse::Instance(){
+	if(!sInstance)
+		sInstance = new InputMouse();
+	return sInstance;
+}
+
+InputMouse::InputMouse()
+	: x(0), y(0)
+{
+	MouseButtonState[0] = up;
+	MouseButtonState[1] = up;
+	MouseButtonState[2] = up;
+}
+
+void InputMouse::Update(){
+	for(int i = 0; i < 3; i++){
+		if(MouseButtonState[i] == pressed){
+			MouseButtonState[i] = constant;
+		}else if(MouseButtonState[i] == released){
+			MouseButtonState[i] = up;
+		}
+	}
+}
+
+int InputMouse::GetState(MButtons button){
+	return sInstance->MouseButtonState[button];
+}
+
+bool InputMouse::GetPressed(MButtons button){
+	return (sInstance->MouseButtonState[button] == pressed);
+}
+
+bool InputMouse::GetReleased(MButtons button){
+	return (sInstance->MouseButtonState[button] == released);
 }

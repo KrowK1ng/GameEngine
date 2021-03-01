@@ -38,6 +38,16 @@ void Game::input(){
 		case SDL_QUIT:
 			isRunning = false;
 			break;
+		case SDL_MOUSEMOTION:
+			InputMouse::Instance()->x = event.motion.x;
+			InputMouse::Instance()->y = event.motion.y;
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			InputMouse::Instance()->MouseButtonState[event.button.button - 1] = InputMouse::pressed;
+			break;
+		case SDL_MOUSEBUTTONUP:
+			InputMouse::Instance()->MouseButtonState[event.button.button - 1] = InputMouse::released;
+			break;
 
 		default:
 			break;

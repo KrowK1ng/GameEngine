@@ -1,5 +1,6 @@
 #include "engine.h"
 #include "object_control.h"
+#include <SDL2/SDL_scancode.h>
 //#include "objects/object_manager.h"
 
 ObjectControl::ObjectControl(int _x, int _y)
@@ -34,7 +35,13 @@ void ObjectControl::Step(){
 		std::cout << "Ten seconds have passed\n";
 		//engine::ChangeRoom("room1");
 	}
-	if(engine::GetKeyReleased(SDL_SCANCODE_S)){
+	//if(engine::GetMButtonPressed(1)){
+	//	printf("%d %d", engine::GetMouseX(), engine::GetMouseY());
+	//}
+	if(engine::GetMButtonPressed(0)){
+		std::cout << engine::GetMouseX() << " " << engine::GetMouseY() << "\n";
+	}
+	if(engine::GetKeyPressed(SDL_SCANCODE_A)){
 		engine::ChangeRoom("room1");
 	}
 }

@@ -20,7 +20,7 @@ namespace engine {
 		std::cout << "Game object created\n";
 		game->init(title, 0, 0, screen_w, screen_h, fullscreen);
 		std::cout << "The window was created\n";
-		
+
 		while(game->running()){
 
 			frameStart = SDL_GetTicks();
@@ -73,4 +73,15 @@ namespace engine {
 	bool GetKeyReleased(SDL_Scancode scanCode){
 		return Input::Instance()->KeyReleased(scanCode);
 	}
+
+	bool GetMButtonPressed(int button){
+		return InputMouse::GetPressed(static_cast<InputMouse::MButtons>(button));
+	}
+
+	bool GetMButtonReleased(int button){
+		return InputMouse::GetReleased(static_cast<InputMouse::MButtons>(button));
+	}
+
+	int GetMouseX(){ return InputMouse::Instance()->x; }
+	int GetMouseY(){ return InputMouse::Instance()->y; }
 }

@@ -26,4 +26,31 @@ class Input{
 		KStates LastKeyboardState[200];
 };
 
+class InputMouse{
+	private:
+		static InputMouse* sInstance;
+	public:
+		static InputMouse* Instance();
+		int x, y;
+		enum MButtons{
+			m_left = 0,
+			m_middle,
+			m_right,
+			m_another
+		};
+		enum MBStates{
+			up,
+			released,
+			pressed,
+			constant
+		};
+		MBStates MouseButtonState[4];
+		void Update();
+		static int GetState(MButtons button);
+		static bool GetPressed(MButtons button);
+		static bool GetReleased(MButtons button);
+	private:
+		InputMouse();
+};
+
 #endif

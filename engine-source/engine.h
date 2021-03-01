@@ -15,6 +15,11 @@ namespace engine{
 	bool GetKey(SDL_Scancode scanCode);
 	bool GetKeyPressed(SDL_Scancode scanCode);
 	bool GetKeyReleased(SDL_Scancode scanCode);
+	///Mouse
+	bool GetMButtonPressed(int button);
+	bool GetMButtonReleased(int button);
+	int GetMouseX();
+	int GetMouseY();
 };
 
 #endif
