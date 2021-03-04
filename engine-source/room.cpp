@@ -23,7 +23,6 @@ Room::Room(char* path){
 		x = std::stoi(line.substr(line.find_first_of(' ') + 1, line.find(' ',line.find_first_of(' ') + 1)));
 		y = std::stoi(line.substr(line.find(' ',line.find_first_of(' ') + 1), line.length() - 1));
 		temp = object::CreateObject(name, x, y);
-		std::cout << "TEMP TEXT\n";
 		obj_manager->AddObject(temp);
 	}
 	source.close();

@@ -4,10 +4,14 @@
 Object::Object(int _x, int _y)
 	: x(_x), y(_y), depth(0)
 {
-	printf("Object created on %d %d\n", _x, _y);
+	//printf("Object created on %d %d\n", _x, _y);
 }
 
 Object::~Object(){}
+
+Object* Object::Initialize(int _x, int _y){
+	return new Object(_x,_y);
+}
 
 void Object::AddSprite(const char* _source, int _w, int _h, int _x, int _y, int _xoff, int _yoff, int _scale){
 	sprite = new Sprite(_source, _w, _h, _x, _y, _xoff, _yoff, _scale);
@@ -51,7 +55,7 @@ void ObjectManager::AddObject(Object* _point){
 		lastnode->next->prev = lastnode;
 		lastnode->next->object = _point;
 	}
-	_point->Start();
+	//_point->Start();
 }
 
 void ObjectManager::DestroyObject(onode *_id){

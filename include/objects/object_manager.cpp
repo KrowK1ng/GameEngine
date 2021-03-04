@@ -2,9 +2,9 @@
 
 namespace object{
 	Object* CreateObject(std::string name, int x, int y){
-		if (name == "ObjectControl") return new ObjectControl(x,y);
-		if (name == "Boy") return new Boy(x,y);
+		if (name == "ObjectControl") return ObjectControl::Initialize(x,y);
+		if (name == "Boy") return Boy::Initialize(x,y);
 		std::cout << "Unable to find " << name << ". Look again at object name." << std::endl;
-		return new Object(x,y);
+		return Object::Initialize(x,y);
 	}
 }

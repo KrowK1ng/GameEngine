@@ -2,7 +2,7 @@
 #include "object_control.h"
 #include "engine.h"
 
-ChessHandler::ChessHandler(int _x, int _y)
+ChessHandler::ChessHandler()
 	: state(idle), selx(0), sely(0), isWhite(true), cellsize(32)
 {
 	for(int i = 0; i < 8; i++){

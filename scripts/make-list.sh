@@ -15,7 +15,7 @@ make_list(){
 	do
 		sed -n "/class/p;/^\/\/GAME-ENGINE-IGNORE/q" "$in" | sed "s/.*class\s*//;s/\s*:.*//;s/\s.*//" | while read name
 		do
-			printf "\t\tif (name == \"%s\") return new %s(x,y);\n" $name $name >> "$cppfile"
+			printf "\t\tif (name == \"%s\") return %s::Initialize(x,y);\n" $name $name >> "$cppfile"
 		done
 	done
 } 
@@ -44,7 +44,7 @@ printf "\nnamespace object{\n" >> "$cppfile"
 printf "\tObject* CreateObject(std::string name, int x, int y){\n" >> "$cppfile"
 make_list
 printf "\t\tstd::cout << \"Unable to find \" << name << \". Look again at object name.\" << std::endl;\n" >> "$cppfile"
-printf "\t\treturn new Object(x,y);\n" >> "$cppfile"
+printf "\t\treturn Object::Initialize(x,y);\n" >> "$cppfile"
 printf "\t}\n" >> "$cppfile"
 printf "}\n" >> "$cppfile"
 mv "$cppfile" include/objects/"$cppfile"

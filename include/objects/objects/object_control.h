@@ -7,11 +7,11 @@
 class ObjectControl : public Object{
 	private:
 		static ObjectControl* sInstance;
-
-	public:
 		ObjectControl(int _x, int _y);
 		~ObjectControl();
+	public:
 		static ObjectControl* Instance();
+		static ObjectControl* Initialize(int _x, int _y);
 		void Start();
 		void Step();
 		void Draw();

@@ -5,6 +5,10 @@ Boy::Boy(int _x, int _y)
 	: Object(_x,_y)
 {}
 
+Boy* Boy::Initialize(int _x, int _y){
+	return new Boy(_x,_y);
+}
+
 void Boy::Start(){
 	l = 0;
 	iq = 10;

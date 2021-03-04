@@ -4,10 +4,11 @@
 #include "object.h"
 
 class Boy : public Object{
-	
-	public:
+	private:
 		Boy(int _x, int _y);
 		~Boy();
+	public:
+		static Boy* Initialize(int _x, int _y);
 		void Start();
 		void Step();
 		void Draw();

@@ -11,7 +11,13 @@ ObjectControl* ObjectControl::Instance(){
 ObjectControl::ObjectControl(int _x, int _y)
 	: Object(_x,_y)
 {
-	sInstance = this;
+	Start();
+}
+
+ObjectControl* ObjectControl::Initialize(int _x, int _y){
+	if(sInstance == NULL)
+		sInstance = new ObjectControl(_x, _y);
+	return sInstance;
 }
 
 void ObjectControl::Start(){
@@ -34,7 +40,7 @@ void ObjectControl::Start(){
 	sbKing = new Sprite("assets/peaces.png",16,16,32,48,0,0,scale);
 	l = 0;
 	cellsize = scale * 16;
-	ChessH = new ChessHandler(0, 0);
+	ChessH = new ChessHandler();
 	ChessH->cellsize = cellsize;
 	StartBoard();
 }

@@ -5,7 +5,7 @@
 
 class ChessHandler {
 	public:
-		ChessHandler(int _x, int _y);
+		ChessHandler();
 		~ChessHandler();
 		enum GameStates{
 			idle,		//Before choosing the peace
