@@ -36,7 +36,7 @@ int Renderer::CreateWindow(char* _title, int _xpos, int _ypos, int _width, int _
 		return 0;
 	}
 	
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_SetRenderDrawColor(renderer, 20, 25, 25, 255);
 
 	self = this;
 	hnode = new snode;
