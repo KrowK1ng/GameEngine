@@ -1,16 +1,25 @@
 #include "engine.h"
 #include "object_control.h"
-#include <SDL2/SDL_scancode.h>
 //#include "objects/object_manager.h"
+
+ObjectControl* ObjectControl::sInstance = NULL;
+
+ObjectControl* ObjectControl::Instance(){
+	return sInstance;
+}
 
 ObjectControl::ObjectControl(int _x, int _y)
 	: Object(_x,_y)
-{}
+{
+	sInstance = this;
+}
 
 void ObjectControl::Start(){
 	int scale = 4;
 	WhiteSquare = new Sprite("assets/chess.png",16,16,0,16,0,0,scale);
 	BlackSquare = new Sprite("assets/chess.png",16,16,0,0,0,0,scale);
+	GreenSquare = new Sprite("assets/chess.png",16,16,16,0,0,0,scale);
+	RedSquare = new Sprite("assets/chess.png",16,16,16,16,0,0,scale);
 	swPawn = new Sprite("assets/peaces.png",16,16,0,0,0,0,scale);
 	swRock = new Sprite("assets/peaces.png",16,16,16,0,0,0,scale);
 	swQueen = new Sprite("assets/peaces.png",16,16,32,0,0,0,scale);
@@ -25,25 +34,19 @@ void ObjectControl::Start(){
 	sbKing = new Sprite("assets/peaces.png",16,16,32,48,0,0,scale);
 	l = 0;
 	cellsize = scale * 16;
+	ChessH = new ChessHandler(0, 0);
+	ChessH->cellsize = cellsize;
 	StartBoard();
 }
 
 void ObjectControl::Step(){
-	l++;
-	l = l % 300;
-	if(!l){
-		std::cout << "Ten seconds have passed\n";
-		//engine::ChangeRoom("room1");
-	}
 	//if(engine::GetMButtonPressed(1)){
 	//	printf("%d %d", engine::GetMouseX(), engine::GetMouseY());
 	//}
 	if(engine::GetMButtonPressed(0)){
-		std::cout << engine::GetMouseX() << " " << engine::GetMouseY() << "\n";
+		//std::cout << "Cell: "<< engine::GetMouseX() / cellsize << " " << engine::GetMouseY() / cellsize<< "\n";
 	}
-	if(engine::GetKeyPressed(SDL_SCANCODE_A)){
-		engine::ChangeRoom("room1");
-	}
+	ChessH->Step();
 }
 
 void ObjectControl::Draw(){
@@ -53,10 +56,23 @@ void ObjectControl::Draw(){
 				WhiteSquare->Render(i * cellsize, j * cellsize);
 			else
 				BlackSquare->Render(i * cellsize, j * cellsize);
+		}
+	}
+	ChessH->Draw();
+	for(int i = 0; i < 8; i++){
+		for (int j = 0; j < 8; j++) {
 			if(table[i][j] > 0)
 				RenderPeace(table[i][j], i * cellsize, j * cellsize);
 		}
 	}
+}
+
+void ObjectControl::DrawRed(int _x, int _y){
+	RedSquare->Render(_x * cellsize, _y * cellsize);
+}
+
+void ObjectControl::DrawGreen(int _x, int _y){
+	GreenSquare->Render(_x * cellsize, _y * cellsize);
 }
 
 void ObjectControl::RenderPeace(ChessPiece _id, int _x, int _y){
@@ -140,4 +156,10 @@ void ObjectControl::StartBoard(){
 	//Kings
 	table[4][7] = wKing;
 	table[4][0] = bKing;
+	/*for(int i = 0; i < 8; i++){
+		for (int j = 0; j < 8; j++) {
+			std::cout << table[i][j] << " ";
+		}
+		std::cout << "\n";
+	}*/
 }

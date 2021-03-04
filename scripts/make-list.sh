@@ -13,7 +13,7 @@ make_includes(){
 make_list(){
 	find src/objects | sed -n "/.h$/p" | while read in
 	do
-		sed -n "/class/p" "$in" | sed "s/.*class\s*//;s/\s*:.*//" | while read name
+		sed -n "/class/p;/^\/\/GAME-ENGINE-IGNORE/q" "$in" | sed "s/.*class\s*//;s/\s*:.*//;s/\s.*//" | while read name
 		do
 			printf "\t\tif (name == \"%s\") return new %s(x,y);\n" $name $name >> "$cppfile"
 		done

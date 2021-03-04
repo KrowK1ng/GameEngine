@@ -2,15 +2,21 @@
 #define OBJECT_CONTROL_H
 //#include "../../engine-source/object.h"
 #include "object.h"
+#include "chess_handler.h"
 
 class ObjectControl : public Object{
-	
+	private:
+		static ObjectControl* sInstance;
+
 	public:
 		ObjectControl(int _x, int _y);
 		~ObjectControl();
+		static ObjectControl* Instance();
 		void Start();
 		void Step();
 		void Draw();
+		void DrawGreen(int _x, int _y);
+		void DrawRed(int _x, int _y);
 		enum ChessPiece{
 			nothing = 0,
 			wPawn,
@@ -32,8 +38,11 @@ class ObjectControl : public Object{
 
 		ChessPiece table[8][8];
 		int l, cellsize;
+		ChessHandler* ChessH;
 		Sprite* WhiteSquare;
 		Sprite* BlackSquare;
+		Sprite* GreenSquare;
+		Sprite* RedSquare;
 		Sprite* swPawn;
 		Sprite* swRock;
 		Sprite* swQueen;
