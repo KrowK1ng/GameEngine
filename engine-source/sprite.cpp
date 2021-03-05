@@ -31,6 +31,17 @@ void Sprite::Render(int _x, int _y, int _depth){
 	Renderer::self->AddSpriteToRender(_depth, false, texture, sRect, tempRect , 0,  nullptr, SDL_FLIP_NONE);
 }
 
+void Sprite::RenderExt(int _x, int _y, int _angle, SDL_RendererFlip _flip){
+	RenderExt(_x, _y, depth, _angle, _flip);
+}
+
+void Sprite::RenderExt(int _x, int _y, int _depth, int _angle, SDL_RendererFlip _flip){
+	dRect->x = _x;
+	dRect->y = _y;
+	SDL_Rect *tempRect = new SDL_Rect(*dRect);
+	Renderer::self->AddSpriteToRender(_depth, true, texture, sRect, tempRect , _angle,  offset, _flip);
+}
+
 AnimatedSprite::AnimatedSprite(const char* _source, int _w, int _h, int _x, int _y, int _xoff, int _yoff, int _scale, int _speed, int _frames) {
 	sRect = new SDL_Rect();
 	dRect = new SDL_Rect();
@@ -79,4 +90,21 @@ void AnimatedSprite::ChangeImageSpeed(int _speed){
 
 void AnimatedSprite::ChangeImageFrame(int _frame){
 	frame_counter = (_frame % frames) * speed;
+}
+
+void AnimatedSprite::RenderExt(int _x, int _y, int _angle, SDL_RendererFlip _flip){
+	RenderExt(_x, _y, depth, _angle, _flip);
+}
+
+void AnimatedSprite::RenderExt(int _x, int _y, int _depth, int _angle, SDL_RendererFlip _flip){
+	// Frames and stuff
+	frame_counter++;
+	frame_counter = frame_counter % (speed * frames);
+	int _frame = frame_counter / speed;
+
+	sRect->x = _frame * width;
+	dRect->x = _x;
+	dRect->y = _y;
+	SDL_Rect *tempRect = new SDL_Rect(*dRect);
+	Renderer::self->AddSpriteToRender(_depth, true, texture, sRect, tempRect , _angle,  offset, _flip);
 }

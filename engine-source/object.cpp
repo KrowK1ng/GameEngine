@@ -54,6 +54,7 @@ void ObjectManager::AddObject(Object* _point){
 		lastnode->next = new onode;
 		lastnode->next->prev = lastnode;
 		lastnode->next->object = _point;
+		lastnode = lastnode->next;
 	}
 	//_point->Start();
 }

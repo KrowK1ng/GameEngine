@@ -16,6 +16,7 @@ class Player : public Object{
 
 		Sprite* PlayerNormal;
 		AnimatedSprite* PlayerWalk;
+		int xspeed,yspeed, flipDirection;
 };
 
 #endif

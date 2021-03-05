@@ -18,20 +18,33 @@ Player* Player::Initialize(int _x, int _y){
 }
 
 void Player::Start(){
-	PlayerNormal = new Sprite("assets/spr_player.png",32,32,0,0,16,16,2);
-	PlayerWalk = new AnimatedSprite("assets/spr_player.png",32,32,0,32,16,16,2,8,6);
+	PlayerNormal = new Sprite("assets/spr_player.png",32,32,0,0,16,16,3);
+	PlayerWalk = new AnimatedSprite("assets/spr_player.png",32,32,0,32,16,16,3,8,6);
+	flipDirection = 0;
 }
 
 void Player::Step(){
+	xspeed = 0;
+	yspeed = 0;
 	if(engine::GetKey(SDL_SCANCODE_D)){
-		x += 4;
+		xspeed += 4;
 	}
 	if(engine::GetKey(SDL_SCANCODE_A)){
-		x -= 4;
+		xspeed -= 4;
 	}
+	if(xspeed > 0)
+		flipDirection = 0;
+	if(xspeed < 0)
+		flipDirection = 1;
+	x += xspeed;
 }
 
 void Player::Draw(){
-	//PlayerNormal->Render(x,y);
-	PlayerWalk->Render(x,y);
+	SDL_RendererFlip _flip = SDL_FLIP_NONE;
+	if(flipDirection)
+		_flip = SDL_FLIP_HORIZONTAL;
+	if(xspeed)
+		PlayerWalk->RenderExt(x,y,0,_flip);
+	else
+		PlayerNormal->RenderExt(x,y,0,_flip);
 }
