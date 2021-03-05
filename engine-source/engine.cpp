@@ -84,4 +84,12 @@ namespace engine {
 
 	int GetMouseX(){ return InputMouse::Instance()->x; }
 	int GetMouseY(){ return InputMouse::Instance()->y; }
+
+	int CreateObject(std::string _name, int _x, int _y){
+		if(!Game::self->current_room)
+			return 0;
+		Object* temp = object::CreateObject(_name, _x, _y);
+		Game::self->current_room->obj_manager->AddObject(temp);
+		return 1;
+	}
 }

@@ -1,5 +1,4 @@
 #include "object.h"
-#include <cstdio>
 
 Object::Object(int _x, int _y)
 	: x(_x), y(_y), depth(0)

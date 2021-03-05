@@ -21,6 +21,8 @@ void Player::Start(){
 	PlayerNormal = new Sprite("assets/spr_player.png",32,32,0,0,16,16,3);
 	PlayerWalk = new AnimatedSprite("assets/spr_player.png",32,32,0,32,16,16,3,8,6);
 	flipDirection = 0;
+	PlayerNormal->depth = -1;
+	PlayerWalk->depth = 1;
 }
 
 void Player::Step(){
@@ -37,6 +39,8 @@ void Player::Step(){
 	if(xspeed < 0)
 		flipDirection = 1;
 	x += xspeed;
+	if(engine::GetMButtonPressed(0))
+		engine::CreateObject("Floor", engine::GetMouseX(), engine::GetMouseY());
 }
 
 void Player::Draw(){

@@ -3,6 +3,7 @@
 
 #include "gamelibs.h"
 #include "game.h"
+#include "objects/object_manager.h"
 
 namespace engine{
 	void StartGame(char* title, int fps, int screen_w, int screen_h, bool fullscreen);
@@ -20,6 +21,8 @@ namespace engine{
 	bool GetMButtonReleased(int button);
 	int GetMouseX();
 	int GetMouseY();
+	
+	int CreateObject(std::string _name, int _x, int _y);
 };
 
 #endif
