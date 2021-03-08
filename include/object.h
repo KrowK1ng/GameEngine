@@ -1,6 +1,7 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 #include "sprite.h"
+#include "collision.h"
 #include "gamelibs.h"
 
 class ObjectManager;
@@ -32,10 +33,22 @@ class Object{
 		virtual void Step();
 		virtual void Draw();
 		virtual void Destroy();
+		virtual void AddObejct();
+		virtual void DestroyObject();
+
+		struct onode{
+			Object* object;
+			onode* prev = nullptr;
+			onode* next = nullptr;
+		};
+		static onode* GetHeadNode();
 
 		int x, y, depth;
 		ObjectManager::onode* id;
 		Sprite* sprite = nullptr; 
-
+		Collider* collider = nullptr;
+	private:
+		static onode* hnode, *lastnode;
+		onode* snode;
 };
 #endif

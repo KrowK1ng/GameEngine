@@ -1,5 +1,6 @@
 #include "obj_player.h"
 #include "engine.h"
+#include "object.h"
 
 Player::Player(int _x, int _y)
 	: Object(_x, _y)
@@ -41,6 +42,20 @@ void Player::Step(){
 	x += xspeed;
 	if(engine::GetMButtonPressed(0))
 		engine::CreateObject("Floor", engine::GetMouseX(), engine::GetMouseY());
+	if(engine::GetKeyPressed(SDL_SCANCODE_W)){
+		Object::onode* _l = Floor::GetHeadNode();
+		while(_l){
+			std::cout << "Floor Object on " << _l->object->x << " " << _l->object->y << "\n";
+			_l = _l->next;
+		}
+	}
+	if(engine::GetKeyPressed(SDL_SCANCODE_O)){
+		Object::onode* _l = Object::GetHeadNode();
+		while(_l){
+			std::cout << "Object on " << _l->object->x << " " << _l->object->y << "\n";
+			_l = _l->next;
+		}
+	}
 }
 
 void Player::Draw(){

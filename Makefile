@@ -21,4 +21,4 @@ $(TEMPDIR)%.o: src/%.cpp
 	$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
 clean: 
-	rm -rf $(TEMPDIR)*.o 
+	rm -rf $(TEMPDIR)*

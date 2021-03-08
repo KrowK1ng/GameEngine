@@ -1,8 +1,5 @@
 #include "gengine.h"
-#include "objects/chess_handler.h"
 #include "objects/obj_floor.h"
-#include "objects/object_control.h"
-#include "objects/boy.h"
 #include "objects/obj_player.h"
 
 namespace object{
