@@ -1,0 +1,3 @@
+1)a big namespace for engine
+2)change class objects list from having object pointer to having the id (Object::onode)
+

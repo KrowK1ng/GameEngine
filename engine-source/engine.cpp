@@ -92,4 +92,12 @@ namespace engine {
 		Game::self->current_room->obj_manager->AddObject(temp);
 		return 1;
 	}
+
+	void DestroyObject(ObjectManager::onode *_id){
+		Game::self->current_room->obj_manager->DestroyObject(_id);
+	}
+
+	bool GetCollToPoint(Collider *_coll, int _x, int _y){
+		return Collision::ColliderToPoint(_coll, _x, _y);
+	}
 }

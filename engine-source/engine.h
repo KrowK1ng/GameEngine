@@ -23,6 +23,10 @@ namespace engine{
 	int GetMouseY();
 	
 	int CreateObject(std::string _name, int _x, int _y);
+	void DestroyObject(ObjectManager::onode* _id);
+
+	//Collision
+	bool GetCollToPoint(Collider* _coll, int _x, int _y);
 };
 
 #endif

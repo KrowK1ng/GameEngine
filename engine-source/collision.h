@@ -19,5 +19,6 @@ class Collision{
 		~Collision();
 	public:
 		static bool AABB(Collider* colA, Collider* colB);
+		static bool ColliderToPoint(Collider* coll, int _x, int _y);
 };
 #endif

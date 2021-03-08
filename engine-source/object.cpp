@@ -107,6 +107,7 @@ void ObjectManager::AddObject(Object* _point){
 		lastnode = lastnode->next;
 	}
 	//_point->Start();
+	_point->id = lastnode;
 }
 
 void ObjectManager::DestroyObject(onode *_id){

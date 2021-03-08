@@ -1,5 +1,5 @@
 #include "obj_floor.h"
-#include "collision.h"
+#include "engine.h"
 
 Floor::onode* Floor::hnode = nullptr;
 Floor::onode* Floor::lastnode = nullptr;
@@ -13,7 +13,6 @@ Floor::Floor(int _x,int _y)
 
 Floor::~Floor(){
 	DestroyObject();
-	std::cout << "Destroyed\n";
 }
 
 Floor* Floor::Initialize(int _x, int _y){
@@ -27,13 +26,22 @@ void Floor::Start(){
 }
 
 void Floor::Step(){
-
+	if(engine::GetMButtonPressed(0)){
+		if(engine::GetCollToPoint(collider, engine::GetMouseX(), engine::GetMouseY())){
+			std::cout << "Pressed on " << x << " " << y << "\n";
+			engine::DestroyObject(id);
+		}
+	}
 	//std::cout << "Step\n";
 }
 
 void Floor::Draw(){
 	//std::cout << "Draw\n";
 	Tile->Render(x,y);
+}
+
+void Floor::Destroy(){
+	delete this;
 }
 
 void Floor::AddObejct(){

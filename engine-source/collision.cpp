@@ -18,3 +18,12 @@ bool Collision::AABB(Collider *colA, Collider *colB){
 				*colA->y + colA->offset_y < *colB->y + colB->offset_y + colB->height
 			);
 }
+
+bool Collision::ColliderToPoint(Collider *coll, int _x, int _y){
+	return (
+				*coll->x + coll->offset_x + coll->width > _x &&
+				*coll->x + coll->offset_x < _x &&
+				*coll->y + coll->offset_y + coll->height > _y &&
+				*coll->y + coll->offset_y < _y 
+			);
+}

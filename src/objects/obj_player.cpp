@@ -40,8 +40,8 @@ void Player::Step(){
 	if(xspeed < 0)
 		flipDirection = 1;
 	x += xspeed;
-	if(engine::GetMButtonPressed(0))
-		engine::CreateObject("Floor", engine::GetMouseX(), engine::GetMouseY());
+	//if(engine::GetMButtonPressed(0))
+		//engine::CreateObject("Floor", engine::GetMouseX(), engine::GetMouseY());
 	if(engine::GetKeyPressed(SDL_SCANCODE_W)){
 		Object::onode* _l = Floor::GetHeadNode();
 		while(_l){
