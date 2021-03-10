@@ -26,6 +26,7 @@ namespace engine{
 	void DestroyObject(ObjectManager::onode* _id);
 
 	//Collision
+	bool GetCollAABB(Collider* _colA, Collider* _colB);
 	bool GetCollToPoint(Collider* _coll, int _x, int _y);
 };
 

@@ -13,6 +13,7 @@ class Floor : public Object{
 		void Start() override;
 		void Step() override;
 		void Draw() override;
+		void Destroy() override;
 		void AddObejct() override;
 		void DestroyObject() override;
 		static onode* GetHeadNode();

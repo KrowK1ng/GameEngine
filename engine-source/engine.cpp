@@ -100,4 +100,8 @@ namespace engine {
 	bool GetCollToPoint(Collider *_coll, int _x, int _y){
 		return Collision::ColliderToPoint(_coll, _x, _y);
 	}
+
+	bool GetCollAABB(Collider *_colA, Collider *_colB){
+		return Collision::AABB(_colA, _colB);
+	}
 }

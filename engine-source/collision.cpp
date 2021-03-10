@@ -27,3 +27,9 @@ bool Collision::ColliderToPoint(Collider *coll, int _x, int _y){
 				*coll->y + coll->offset_y < _y 
 			);
 }
+
+bool Collision::LineToLine(int _Ax1, int _Ay1, int _Ax2, int _Ay2, int _Bx1, int _By1, int _Bx2, int _y2){
+	return (
+				true
+			);
+}

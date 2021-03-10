@@ -25,7 +25,7 @@ bool Input::KeyDown(SDL_Scancode scanCode){
 
 void Input::Update(){
 	KeyboardState = SDL_GetKeyboardState(NULL);
-	for(int i = 0;i < SDL_SCANCODE_Z; i++){
+	for(int i = 0;i < 50; i++){
 		if(KeyDown(static_cast<SDL_Scancode>(i))){
 			if(LastKeyboardState[i] < pressed){
 				LastKeyboardState[i] = pressed;

@@ -8,6 +8,8 @@ class Player : public Object{
 		static Player* sInstance;
 		Player(int _x, int _y);
 		~Player();
+		float jSpeed = -15;
+		float g = 60;
 	public:
 		static Player* Initialize(int _x, int _y);
 		void Start();
@@ -16,7 +18,9 @@ class Player : public Object{
 
 		Sprite* PlayerNormal;
 		AnimatedSprite* PlayerWalk;
-		int xspeed,yspeed, flipDirection;
+		Collider* downCollider;
+		float xspeed,yspeed, flipDirection;
+		float fx, fy;
 };
 
 #endif
