@@ -1,0 +1,7 @@
+out/*
+src/*
+assets/*
+temp/*
+include/objects/*
+engine/temp/*
+test/
