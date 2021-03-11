@@ -84,6 +84,8 @@ void AnimatedSprite::Render(int _x, int _y, int _depth){
 }
 
 void AnimatedSprite::ChangeImageSpeed(int _speed){
+	if(speed == _speed)
+		return;
 	frame_counter = (frame_counter / speed) * speed;
 	speed = _speed;
 }
