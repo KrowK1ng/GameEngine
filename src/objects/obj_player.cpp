@@ -99,6 +99,9 @@ void Player::Step(){
 			_l = _l->next;
 		}
 	}*/
+
+	//view
+	engine::SetView(x - 256, engine::GetViewY());
 }
 
 void Player::Draw(){

@@ -16,6 +16,7 @@ class Renderer {
 		//static void Render();
 		static SDL_Renderer* renderer;
 		static Renderer* self;
+		int xView, yView;
 	private :
 		SDL_Window* window;
 		struct snode{
@@ -28,24 +29,22 @@ class Renderer {
 
 class RenderSprite {
 	public:
-		RenderSprite(bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect* _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip)
-			: isComplex(_isComp), texture(_tex), sRect(_sRect), dRect(_dRect), angle(_ang), offset(_offset), flipFlag(_flip)
-		{};
+		RenderSprite(bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip);
 		~RenderSprite(){
-			delete dRect;
+			delete &dRect;
 		}
 		void draw(){
 			if(isComplex){
-				SDL_RenderCopyEx(Renderer::renderer, texture, sRect, dRect, angle, offset, flipFlag);
+				SDL_RenderCopyEx(Renderer::renderer, texture, sRect, &dRect, angle, offset, flipFlag);
 				return;
 			}
-			SDL_RenderCopy(Renderer::renderer, texture, sRect, dRect);
+			SDL_RenderCopy(Renderer::renderer, texture, sRect, &dRect);
 		}
 	private:
 		bool isComplex;
 		SDL_Texture* texture;
 		SDL_Rect* sRect;
-		SDL_Rect* dRect;
+		SDL_Rect dRect;
 		double angle;
 		SDL_Point* offset;
 		SDL_RendererFlip flipFlag;

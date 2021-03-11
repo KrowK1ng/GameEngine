@@ -28,6 +28,11 @@ namespace engine{
 	//Collision
 	bool GetCollAABB(Collider* _colA, Collider* _colB);
 	bool GetCollToPoint(Collider* _coll, int _x, int _y);
+
+	//Rendering
+	int GetViewX();
+	int GetViewY();
+	void SetView(int _x, int _y);
 };
 
 #endif

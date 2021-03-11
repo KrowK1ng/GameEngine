@@ -104,4 +104,17 @@ namespace engine {
 	bool GetCollAABB(Collider *_colA, Collider *_colB){
 		return Collision::AABB(_colA, _colB);
 	}
+	
+	int GetViewX(){
+		return Renderer::self->xView;
+	}
+	
+	int GetViewY(){
+		return Renderer::self->yView;
+	}
+
+	void SetView(int _x, int _y){
+		Renderer::self->xView = _x;
+		Renderer::self->yView = _y;
+	}
 }

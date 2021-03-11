@@ -41,6 +41,7 @@ int Renderer::CreateWindow(char* _title, int _xpos, int _ypos, int _width, int _
 	self = this;
 	hnode = new snode;
 	hnode->depth = 0;
+	xView = yView = 0;
 	return 1;
 }
 
@@ -66,7 +67,7 @@ void Renderer::CloseWindow(){
 }
 
 void Renderer::AddSpriteToRender(int _depth,bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect* _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip){
-	RenderSprite *tempSprite = new RenderSprite( _isComp, _tex, _sRect,  _dRect, _ang, _offset, _flip);
+	RenderSprite *tempSprite = new RenderSprite( _isComp, _tex, _sRect,  *_dRect, _ang, _offset, _flip);
 	if(hnode->next){							//Checks if a sprite was already added
 		tempnode = hnode->next;
 		prevnode = hnode;
@@ -93,3 +94,12 @@ void Renderer::AddSpriteToRender(int _depth,bool _isComp, SDL_Texture* _tex, SDL
 		tempnode->sprite = tempSprite;
 	}
 }
+
+////Render Sprite
+
+RenderSprite::RenderSprite(bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip)
+	: isComplex(_isComp), texture(_tex), sRect(_sRect), dRect(_dRect), angle(_ang), offset(_offset), flipFlag(_flip)
+{
+	dRect.x -= Renderer::self->xView;
+	dRect.y -= Renderer::self->yView;
+};
