@@ -37,7 +37,7 @@ namespace engine{
 	void SetViewCenter(int _x, int _y);
 
 	//Math
-	float GetAnge2Points(int _x1, int _y1, int _x2, int _y2);
+	float GetAngle2Points(int _x1, int _y1, int _x2, int _y2);
 };
 
 #endif
