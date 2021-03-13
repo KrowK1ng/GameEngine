@@ -110,3 +110,7 @@ void AnimatedSprite::RenderExt(int _x, int _y, int _depth, int _angle, SDL_Rende
 	SDL_Rect *tempRect = new SDL_Rect(*dRect);
 	Renderer::self->AddSpriteToRender(_depth, true, texture, sRect, tempRect , _angle,  offset, _flip);
 }
+
+bool AnimatedSprite::isEnd(){
+	return (frame_counter == (speed * frames) - 1);
+}

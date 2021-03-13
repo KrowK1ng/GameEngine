@@ -95,7 +95,7 @@ ObjectManager::~ObjectManager(){
 	}
 }
 
-void ObjectManager::AddObject(Object* _point){
+ObjectManager::onode* ObjectManager::AddObject(Object* _point){
 	if (!hnode){
 		hnode = new onode;
 		hnode->object = _point;
@@ -108,6 +108,7 @@ void ObjectManager::AddObject(Object* _point){
 	}
 	//_point->Start();
 	_point->id = lastnode;
+	return lastnode;
 }
 
 void ObjectManager::DestroyObject(onode *_id){

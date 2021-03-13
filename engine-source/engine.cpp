@@ -82,15 +82,14 @@ namespace engine {
 		return InputMouse::GetReleased(static_cast<InputMouse::MButtons>(button));
 	}
 
-	int GetMouseX(){ return InputMouse::Instance()->x; }
-	int GetMouseY(){ return InputMouse::Instance()->y; }
+	int GetMouseX(){ return InputMouse::Instance()->x + Renderer::self->xView; }
+	int GetMouseY(){ return InputMouse::Instance()->y + Renderer::self->yView; }
 
-	int CreateObject(std::string _name, int _x, int _y){
+	ObjectManager::onode* CreateObject(std::string _name, int _x, int _y){
 		if(!Game::self->current_room)
-			return 0;
+			return NULL;
 		Object* temp = object::CreateObject(_name, _x, _y);
-		Game::self->current_room->obj_manager->AddObject(temp);
-		return 1;
+		return Game::self->current_room->obj_manager->AddObject(temp);
 	}
 
 	void DestroyObject(ObjectManager::onode *_id){
@@ -116,5 +115,41 @@ namespace engine {
 	void SetView(int _x, int _y){
 		Renderer::self->xView = _x;
 		Renderer::self->yView = _y;
+	}
+
+	void SetViewClean(int _x, int _y){
+		if(!Game::self->current_room)
+			return;
+		if(_x < 0)
+			_x = 0;
+		if(_y < 0)
+			_y = 0;
+		if(_x + Renderer::self->wView > Game::self->current_room->width)
+			_x = Game::self->current_room->width - Renderer::self->wView;
+		if(_y + Renderer::self->wView > Game::self->current_room->height)
+			_y = Game::self->current_room->height - Renderer::self->wView;
+		SetView(_x, _y);
+	}
+
+	void SetViewCenter(int _x, int _y){
+		if(!Game::self->current_room)
+			return;
+		int rw = Renderer::self->wView;
+		int rh = Renderer::self->hView;
+		int cw = Game::self->current_room->width;
+		int ch = Game::self->current_room->height;
+		if(_x < rw / 2 )
+			_x = rw / 2;
+		if(_y < rh / 2)
+			_y = rh / 2;
+		if(_x + rw / 2 > cw)
+			_x = cw - rw / 2;
+		if(_y + rh / 2 > ch)
+			_y = ch - rh / 2;
+		SetView(_x - rw / 2, _y - rh / 2);
+	}
+
+	float GetAngle2Points(int _x1, int _y1, int _x2, int _y2){
+		return std::atan2(_y1 - _y2, _x1 - _x2) * 180 / 3.14;
 	}
 }

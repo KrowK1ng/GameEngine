@@ -42,6 +42,8 @@ int Renderer::CreateWindow(char* _title, int _xpos, int _ypos, int _width, int _
 	hnode = new snode;
 	hnode->depth = 0;
 	xView = yView = 0;
+	hView = _height;
+	wView = _width;
 	return 1;
 }
 

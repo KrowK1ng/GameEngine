@@ -2,3 +2,4 @@
 2)change class objects list from having object pointer to having the id (Object::onode)
 3)Room data saved in json
 4)Aditional data in the room file (object size, some variable changed ...)
+5) Image speed like in game maker (the speed will be a float)

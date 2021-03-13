@@ -22,7 +22,7 @@ namespace engine{
 	int GetMouseX();
 	int GetMouseY();
 	
-	int CreateObject(std::string _name, int _x, int _y);
+	ObjectManager::onode* CreateObject(std::string _name, int _x, int _y);
 	void DestroyObject(ObjectManager::onode* _id);
 
 	//Collision
@@ -33,6 +33,11 @@ namespace engine{
 	int GetViewX();
 	int GetViewY();
 	void SetView(int _x, int _y);
+	void SetViewClean(int _x, int _y);
+	void SetViewCenter(int _x, int _y);
+
+	//Math
+	float GetAngle2Points(int _x1, int _y1, int _x2, int _y2);
 };
 
 #endif

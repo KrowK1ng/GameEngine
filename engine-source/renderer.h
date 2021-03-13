@@ -16,7 +16,7 @@ class Renderer {
 		//static void Render();
 		static SDL_Renderer* renderer;
 		static Renderer* self;
-		int xView, yView;
+		int xView, yView, hView, wView;
 	private :
 		SDL_Window* window;
 		struct snode{

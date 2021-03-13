@@ -17,7 +17,7 @@ class ObjectManager{
 			onode* prev = nullptr;
 			onode* next = nullptr;
 		}* hnode,* lastnode,* tempnode;
-		void AddObject(Object* _point);
+		onode* AddObject(Object* _point);
 		void DestroyObject(onode* _id);
 		void Step();
 		void Draw();

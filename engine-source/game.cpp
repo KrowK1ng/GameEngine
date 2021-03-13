@@ -23,9 +23,10 @@ void Game::init(char* _title, int _xpos, int _ypos, int _width, int _height, boo
 	tempobj->depth = 5;
 	tempobj->AddSprite("assets/spritesheet.png",  16, 16, 0, 0, 0, 0);
 	obj_manager->AddObject(tempobj);*/
-	current_room = new Room("assets/rooms/room0");
 	//Singleton
 	self = this;
+
+	current_room = new Room("assets/rooms/room0");
 }
 
 void Game::input(){

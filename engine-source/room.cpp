@@ -1,6 +1,7 @@
 #include "room.h"
 #include "object.h"
 #include "objects/object_manager.h"
+#include "game.h"
 
 Room::Room(char* path){
 	obj_manager = new ObjectManager();
@@ -18,6 +19,7 @@ Room::Room(char* path){
 	std::string name;
 	int x;
 	int y;
+	Game::self->current_room = this;			//Sets The room early for no Start create object bug;
 	while (std::getline(source,line)){
 		name = line.substr(0,line.find_first_of(' '));
 		x = std::stoi(line.substr(line.find_first_of(' ') + 1, line.find(' ',line.find_first_of(' ') + 1)));
@@ -45,12 +47,12 @@ Room::Room(std::string path){
 	std::string name;
 	int x;
 	int y;
+	Game::self->current_room = this;			//Sets The room early for no Start create object bug;
 	while (std::getline(source,line)){
 		name = line.substr(0,line.find_first_of(' '));
 		x = std::stoi(line.substr(line.find_first_of(' ') + 1, line.find(' ',line.find_first_of(' ') + 1)));
 		y = std::stoi(line.substr(line.find(' ',line.find_first_of(' ') + 1), line.length() - 1));
 		temp = object::CreateObject(name, x, y);
-		std::cout << "TEMP TEXT\n";
 		obj_manager->AddObject(temp);
 	}
 	source.close();

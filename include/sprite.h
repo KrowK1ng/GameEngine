@@ -33,6 +33,7 @@ class AnimatedSprite : public Sprite{
 		void RenderExt(int _x, int _y, int _depth, int _angle, SDL_RendererFlip _flip);
 		void ChangeImageSpeed(int _speed);
 		void ChangeImageFrame(int _frame);
+		bool isEnd();
 		
 		SDL_Texture* texture;
 		SDL_Rect* sRect;
