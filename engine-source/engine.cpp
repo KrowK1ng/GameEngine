@@ -152,4 +152,10 @@ namespace engine {
 	float GetAngle2Points(int _x1, int _y1, int _x2, int _y2){
 		return std::atan2(_y1 - _y2, _x1 - _x2) * 180 / 3.14;
 	}
+
+	bool PointOutsideRoom(int _x, int _y){
+		if(!Game::self->current_room)
+			return false;
+		return (_x < 0 || _y < 0 || _x > Game::self->current_room->width || _y > Game::self->current_room->height);
+	}
 }
