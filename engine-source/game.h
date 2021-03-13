@@ -12,13 +12,14 @@ class Game {
 		Game();
 		~Game();
 
-		void init(char* _title, int _xpos, int _ypos, int _width, int _height, bool _fullscreen);
+		void init(char* _title, int _xpos, int _ypos, int _width, int _height, int _scale, bool _fullscreen);
 		void input();
 		void update();
 		void render();
 		void clean();
 		
 		bool running(){return isRunning;}
+		void stop(){isRunning = false;}
 		static Renderer* renderer;
 		static Game* self;
 		Input* InputManager;

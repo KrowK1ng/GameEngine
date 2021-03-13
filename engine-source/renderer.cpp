@@ -42,8 +42,11 @@ int Renderer::CreateWindow(char* _title, int _xpos, int _ypos, int _width, int _
 	hnode = new snode;
 	hnode->depth = 0;
 	xView = yView = 0;
+	scale = 2;
 	hView = _height;
 	wView = _width;
+	//hView = _height / scale;
+	//wView = _width / scale;
 	return 1;
 }
 
@@ -100,8 +103,19 @@ void Renderer::AddSpriteToRender(int _depth,bool _isComp, SDL_Texture* _tex, SDL
 ////Render Sprite
 
 RenderSprite::RenderSprite(bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip)
-	: isComplex(_isComp), texture(_tex), sRect(_sRect), dRect(_dRect), angle(_ang), offset(_offset), flipFlag(_flip)
+	: isComplex(_isComp), texture(_tex), sRect(_sRect), dRect(_dRect), angle(_ang), flipFlag(_flip)
 {
-	dRect.x -= Renderer::self->xView;
-	dRect.y -= Renderer::self->yView;
+	dRect.x = (dRect.x - Renderer::self->xView) * Renderer::self->scale;
+	dRect.y = (dRect.y - Renderer::self->yView) * Renderer::self->scale;
+	dRect.w *= Renderer::self->scale;
+	dRect.h *= Renderer::self->scale;
+	if(_offset){
+		offset = new SDL_Point();
+		offset->x = _offset->x * Renderer::self->scale;
+		offset->y = _offset->y * Renderer::self->scale;
+	}else {
+		offset = nullptr;
+	}
+	//offset.x *= Renderer::self->scale;
+	//offset.y *= Renderer::self->scale;
 };

@@ -7,7 +7,7 @@ namespace engine {
 	bool isChangeRoom = false;
 	std::string room_path;
 
-	void StartGame(char* title, int fps, int screen_w, int screen_h, bool fullscreen){
+	void StartGame(char* title, int fps, int screen_w, int screen_h, int scale, bool fullscreen){
 		Game* game;
 		FPS = fps;
 		const int frameDelay = 1000/fps;
@@ -18,7 +18,7 @@ namespace engine {
 		std::cout << "Ready to start the game\n";
 		game = new Game();
 		std::cout << "Game object created\n";
-		game->init(title, 0, 0, screen_w, screen_h, fullscreen);
+		game->init(title, 0, 0, screen_w, screen_h, scale, fullscreen);
 		std::cout << "The window was created\n";
 
 		while(game->running()){
@@ -48,6 +48,10 @@ namespace engine {
 		//strcat(room_path,relative_path);
 		//delete Game::self->current_room;
 		//Game::self->current_room = new Room("assets/rooms/room0");
+	}
+
+	void EndGame(){
+		Game::self->stop();
 	}
 
 	void EngineStep(){
@@ -82,8 +86,8 @@ namespace engine {
 		return InputMouse::GetReleased(static_cast<InputMouse::MButtons>(button));
 	}
 
-	int GetMouseX(){ return InputMouse::Instance()->x + Renderer::self->xView; }
-	int GetMouseY(){ return InputMouse::Instance()->y + Renderer::self->yView; }
+	int GetMouseX(){ return (InputMouse::Instance()->x / Renderer::self->scale + Renderer::self->xView); }
+	int GetMouseY(){ return (InputMouse::Instance()->y / Renderer::self->scale + Renderer::self->yView); }
 
 	ObjectManager::onode* CreateObject(std::string _name, int _x, int _y){
 		if(!Game::self->current_room)
@@ -147,6 +151,10 @@ namespace engine {
 		if(_y + rh / 2 > ch)
 			_y = ch - rh / 2;
 		SetView(_x - rw / 2, _y - rh / 2);
+	}
+
+	void SetFullscreen(){
+		SDL_SetWindowFullscreen(Renderer::self->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	}
 
 	float GetAngle2Points(int _x1, int _y1, int _x2, int _y2){

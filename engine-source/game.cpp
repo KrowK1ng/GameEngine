@@ -5,12 +5,13 @@ Game::~Game(){}
 Renderer* Game::renderer;
 Game* Game::self;
 
-void Game::init(char* _title, int _xpos, int _ypos, int _width, int _height, bool _fullscreen){
+void Game::init(char* _title, int _xpos, int _ypos, int _width, int _height, int _scale, bool _fullscreen){
 	renderer = new Renderer();
 	if(renderer->CreateWindow(_title, _xpos, _ypos, _width, _height, _fullscreen)){
 		isRunning = true;
 		std::cout << "Window Created succesefuly.\n" ;
 	}
+	renderer->scale = _scale;
 	InputManager = Input::Instance();
 	current_room = nullptr;
 	//Temp
@@ -27,6 +28,10 @@ void Game::init(char* _title, int _xpos, int _ypos, int _width, int _height, boo
 	self = this;
 
 	current_room = new Room("assets/rooms/room0");
+
+	SDL_RenderSetLogicalSize(renderer->renderer, _width * _scale, _height * _scale );
+	//SDL_RenderSetScale(renderer->renderer, 2, 2);
+	SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "0" );
 }
 
 void Game::input(){

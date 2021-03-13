@@ -17,8 +17,9 @@ class Renderer {
 		static SDL_Renderer* renderer;
 		static Renderer* self;
 		int xView, yView, hView, wView;
-	private :
+		int scale;
 		SDL_Window* window;
+	private :
 		struct snode{
 			RenderSprite* sprite = nullptr;
 			int depth;
@@ -42,11 +43,11 @@ class RenderSprite {
 		}
 	private:
 		bool isComplex;
+		SDL_Point *offset;
 		SDL_Texture* texture;
 		SDL_Rect* sRect;
 		SDL_Rect dRect;
 		double angle;
-		SDL_Point* offset;
 		SDL_RendererFlip flipFlag;
 };
 
