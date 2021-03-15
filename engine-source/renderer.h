@@ -3,7 +3,7 @@
 #include "gamelibs.h"
 
 class Renderer;
-class RenderSprite;
+class RenderObject;
 
 
 class Renderer {
@@ -13,6 +13,7 @@ class Renderer {
 		void RenderWindow();
 		void CloseWindow();
 		void AddSpriteToRender(int _depth,bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect* _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip);
+		void AddRectToRender(int _depth, int _x, int _y, int _w, int _h, int _r, int _g, int _b);
 		//static void Render();
 		static SDL_Renderer* renderer;
 		static Renderer* self;
@@ -21,25 +22,32 @@ class Renderer {
 		SDL_Window* window;
 	private :
 		struct snode{
-			RenderSprite* sprite = nullptr;
+			RenderObject* sprite = nullptr;
 			int depth;
 			snode* next = nullptr;
 		}* hnode,* tempnode,* prevnode;
 };
 
+class RenderObject {
+	public:
+		RenderObject(){}
+		~RenderObject(){}
+		virtual void draw(){}
+};
 
-class RenderSprite {
+class RenderSprite : public RenderObject {
 	public:
 		RenderSprite(bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip);
 		~RenderSprite(){
 			delete &dRect;
 		}
-		void draw(){
+		void draw() override{
 			if(isComplex){
 				SDL_RenderCopyEx(Renderer::renderer, texture, sRect, &dRect, angle, offset, flipFlag);
 				return;
 			}
 			SDL_RenderCopy(Renderer::renderer, texture, sRect, &dRect);
+			return;
 		}
 	private:
 		bool isComplex;
@@ -49,6 +57,22 @@ class RenderSprite {
 		SDL_Rect dRect;
 		double angle;
 		SDL_RendererFlip flipFlag;
+};
+
+class RenderRectangle : public RenderObject {
+	public:
+		RenderRectangle(int _x, int _y, int _w, int _h, int _r, int _g, int _b);
+		~RenderRectangle(){
+			delete rect;
+		}
+		void draw() override{
+			//Temp
+			SDL_SetRenderDrawColor(Renderer::renderer, r, g, b, 255);
+			SDL_RenderFillRect(Renderer::renderer, rect);
+		}
+	private:
+		SDL_Rect* rect;
+		int r, g, b;
 };
 
 #endif

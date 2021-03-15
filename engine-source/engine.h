@@ -39,6 +39,9 @@ namespace engine{
 	void SetViewCenter(int _x, int _y);
 	void SetFullscreen();
 
+	//Drawing
+	void DrawRectangle(int _depth, int _x, int _y, int _w, int _h);
+
 	//Math
 	float GetAngle2Points(int _x1, int _y1, int _x2, int _y2);
 	bool PointOutsideRoom(int _x, int _y);

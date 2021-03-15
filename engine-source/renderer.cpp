@@ -1,4 +1,5 @@
 #include "renderer.h"
+#include <SDL2/SDL_rect.h>
 
 using namespace std;
 
@@ -100,10 +101,38 @@ void Renderer::AddSpriteToRender(int _depth,bool _isComp, SDL_Texture* _tex, SDL
 	}
 }
 
+void Renderer::AddRectToRender(int _depth, int _x, int _y, int _w, int _h, int _r, int _g, int _b){
+	RenderRectangle* tempSprite = new RenderRectangle(_x, _y, _w, _h, _r, _g, _b);
+	if(hnode->next){							//Checks if a sprite was already added
+		tempnode = hnode->next;
+		prevnode = hnode;
+		while(tempnode){
+			if(tempnode->depth > _depth){		//If the sprite must be showed firts
+				tempnode = new snode;
+				tempnode->sprite = tempSprite;
+				tempnode->depth = _depth;
+				tempnode->next = prevnode->next;
+				prevnode->next = tempnode;
+				return;
+			}
+			prevnode = tempnode;
+			tempnode = tempnode->next;
+		}
+		tempnode = new snode;					// If the sprite is at the end of the list
+		tempnode->sprite = tempSprite;
+		tempnode->depth = _depth;
+		prevnode->next = tempnode;
+	}else{										//Adds first sprite
+		tempnode = new snode;
+		hnode->next = tempnode;
+		tempnode->depth = _depth;
+		tempnode->sprite = tempSprite;
+	}
+}
 ////Render Sprite
 
 RenderSprite::RenderSprite(bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip)
-	: isComplex(_isComp), texture(_tex), sRect(_sRect), dRect(_dRect), angle(_ang), flipFlag(_flip)
+	: isComplex(_isComp), texture(_tex), sRect(_sRect), dRect(_dRect), angle(_ang), flipFlag(_flip), RenderObject()
 {
 	dRect.x = (dRect.x - Renderer::self->xView) * Renderer::self->scale;
 	dRect.y = (dRect.y - Renderer::self->yView) * Renderer::self->scale;
@@ -119,3 +148,13 @@ RenderSprite::RenderSprite(bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SD
 	//offset.x *= Renderer::self->scale;
 	//offset.y *= Renderer::self->scale;
 };
+
+RenderRectangle::RenderRectangle(int _x, int _y, int _w, int _h, int _r, int _g, int _b)
+	: r(_r), g(_g), b(_b), RenderObject()
+{
+	rect = new SDL_Rect();
+	rect->x = (_x - Renderer::self->xView) * Renderer::self->scale;
+	rect->y = (_y - Renderer::self->yView) * Renderer::self->scale;
+	rect->w = _w * Renderer::self->scale;
+	rect->h = _h * Renderer::self->scale;
+}

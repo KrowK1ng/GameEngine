@@ -157,6 +157,13 @@ namespace engine {
 		SDL_SetWindowFullscreen(Renderer::self->window, SDL_WINDOW_FULLSCREEN_DESKTOP);
 	}
 
+	//Drawing
+	void DrawRectangle(int _depth, int _x, int _y, int _w, int _h){
+		using j = Renderer;
+		j::self->AddRectToRender(_depth, _x, _y, _w, _h, 0, 0, 0);
+	}
+
+	//Math
 	float GetAngle2Points(int _x1, int _y1, int _x2, int _y2){
 		return std::atan2(_y1 - _y2, _x1 - _x2) * 180 / 3.14;
 	}
