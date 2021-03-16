@@ -72,6 +72,7 @@ InputMouse::InputMouse()
 }
 
 void InputMouse::Update(){
+	//SDL_GetMouseState(&x, &y);
 	for(int i = 0; i < 3; i++){
 		if(MouseButtonState[i] == pressed){
 			MouseButtonState[i] = constant;
