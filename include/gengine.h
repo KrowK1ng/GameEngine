@@ -3,6 +3,7 @@
 #include "game.h"
 #include "gamelibs.h"
 #include "input.h"
+#include "mathlib.h"
 #include "object.h"
 #include "renderer.h"
 #include "room.h"

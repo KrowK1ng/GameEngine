@@ -67,6 +67,7 @@ Room::~Room(){
 void Room::update(){
 	//obj_manager->Step();
 	obj_manager->Step();
+	obj_manager->Destroy();
 }
 
 void Room::render(){

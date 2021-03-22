@@ -2,7 +2,7 @@
 CC := g++
 
 # Flags
-CFLAGS := `sdl2-config --libs` -lSDL2_image -lm -Wall
+CFLAGS := `sdl2-config --libs` -lSDL2_image -lm -Wall -I../include
 
 # Source file
 SRCS := $(shell ls ../engine-source/*.cpp )

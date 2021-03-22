@@ -4,6 +4,7 @@
 #include "gamelibs.h"
 #include "game.h"
 #include "objects/object_manager.h"
+#include "object.h"
 
 namespace engine{
 	void StartGame(char* title, int fps, int screen_w, int screen_h, int scale, bool fullscreen);
@@ -24,8 +25,8 @@ namespace engine{
 	int GetMouseX();
 	int GetMouseY();
 	
-	ObjectManager::onode* CreateObject(std::string _name, int _x, int _y);
-	void DestroyObject(ObjectManager::onode* _id);
+	List<Object*>::node* CreateObject(std::string _name, int _x, int _y);
+	void DestroyObject(List<Object*>::node*  _id);
 
 	//Collision
 	bool GetCollAABB(Collider* _colA, Collider* _colB);

@@ -89,14 +89,15 @@ namespace engine {
 	int GetMouseX(){ return (InputMouse::Instance()->x / Renderer::self->scale + Renderer::self->xView); }
 	int GetMouseY(){ return (InputMouse::Instance()->y / Renderer::self->scale + Renderer::self->yView); }
 
-	ObjectManager::onode* CreateObject(std::string _name, int _x, int _y){
+	List<Object*>::node* CreateObject(std::string _name, int _x, int _y){
 		if(!Game::self->current_room)
 			return NULL;
 		Object* temp = object::CreateObject(_name, _x, _y);
 		return Game::self->current_room->obj_manager->AddObject(temp);
 	}
 
-	void DestroyObject(ObjectManager::onode *_id){
+	void DestroyObject(List<Object*>::node* _id){
+		std::cout << _id ;
 		Game::self->current_room->obj_manager->DestroyObject(_id);
 	}
 

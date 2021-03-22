@@ -3,24 +3,25 @@
 #include "sprite.h"
 #include "collision.h"
 #include "gamelibs.h"
+#include "mathlib.h"
 
 class ObjectManager;
 class Object;
 
 class ObjectManager{
-	
+	private:
+		List<Object*>::node* tempnode;
 	public:
 		ObjectManager();
 		~ObjectManager();
-		struct onode{					//Node of an object
-			Object* object;
-			onode* prev = nullptr;
-			onode* next = nullptr;
-		}* hnode,* lastnode,* tempnode;
-		onode* AddObject(Object* _point);
-		void DestroyObject(onode* _id);
+		List<Object*> ObjectList;
+		List<List<Object*>::node*> DestroyList;
+		List<Object*>::node* AddObject(Object* _point);
+		void DestroyObject(List<Object*>::node* _id);
+		//void AddDestroyObject(List<Object*>::node* _id);
 		void Step();
 		void Draw();
+		void Destroy();
 };
 
 class Object{
@@ -36,19 +37,15 @@ class Object{
 		virtual void AddObejct();
 		virtual void DestroyObject();
 
-		struct onode{
-			Object* object;
-			onode* prev = nullptr;
-			onode* next = nullptr;
-		};
-		static onode* GetHeadNode();
+		static List<Object*>::node* GetHeadNode();
 
 		int x, y, depth;
-		ObjectManager::onode* id;
+		List<Object*>::node* id;							//id
 		Sprite* sprite = nullptr; 
 		Collider* collider = nullptr;
 	private:
-		static onode* hnode, *lastnode;
-		onode* snode;
+		List<Object*>::node* snode;							//self node
+		static List<Object*> ObjectList;
+
 };
 #endif

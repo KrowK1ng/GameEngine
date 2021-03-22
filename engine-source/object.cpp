@@ -1,20 +1,18 @@
 #include "object.h"
 #include <iostream>
 
-Object::onode* Object::lastnode = nullptr;
-Object::onode* Object::hnode = nullptr;
+//using lis = List<Object*>;
+
+List<Object*> Object::ObjectList;
 
 Object::Object(int _x, int _y)
 	: x(_x), y(_y), depth(0)
 {
-	//printf("Object created on %d %d\n", _x, _y);
 	AddObejct();
-	std::cout << "OBJ Created\n";
 }
 
 Object::~Object(){
 	DestroyObject();
-	std::cout << "OBJ Destroyed\n";
 }
 
 Object* Object::Initialize(int _x, int _y){
@@ -32,7 +30,6 @@ void Object::Step(){}
 
 void Object::Draw(){
 	sprite->Render(x, y);
-	std::cout << "OBJ drawed\n";
 }
 
 void Object::Destroy(){
@@ -40,111 +37,75 @@ void Object::Destroy(){
 }
 
 void Object::AddObejct(){
-	if(!hnode){
-		hnode = new onode;
-		lastnode = hnode;
-		hnode->object = this;
-	}else{
-		lastnode->next = new onode;
-		lastnode->next->prev = lastnode;
-		lastnode = lastnode->next;
-		lastnode->object = this;
-	}
-	snode = lastnode;
+	ObjectList.AddLast(this);
+	snode = ObjectList.lastnode;
 }
 
 void Object::DestroyObject(){
 	if(!snode)
 		return;
-	if(!snode->prev){
-		if(!snode->next){
-			hnode = nullptr;
-			lastnode = nullptr;
-		}else{
-			hnode = snode->next;
-			hnode->prev = nullptr;
-		}
-	}else{
-		if(!snode->next){
-			snode->prev->next = nullptr;
-			lastnode = snode->prev;
-		}else{
-			snode->next->prev = snode->prev;
-			snode->prev->next = snode->next;
-		}
-	}
-	delete snode;
+	ObjectList.RemoveData(snode);
 }
 
-Object::onode* Object::GetHeadNode(){
-	return hnode;
+List<Object*>::node* Object::GetHeadNode(){
+	return ObjectList.hnode;
 }
 
 ObjectManager::ObjectManager(){
-	hnode = nullptr;
-	lastnode = nullptr;
 }
 
 ObjectManager::~ObjectManager(){
-	tempnode = hnode;
-	while(tempnode){
-		lastnode = tempnode;
-		tempnode = tempnode->next;
-		lastnode->object->Destroy();
-		delete lastnode;
-	}
+	delete &ObjectList;
+	delete &DestroyList;
 }
 
-ObjectManager::onode* ObjectManager::AddObject(Object* _point){
-	if (!hnode){
-		hnode = new onode;
-		hnode->object = _point;
-		lastnode = hnode;
-	}else{
-		lastnode->next = new onode;
-		lastnode->next->prev = lastnode;
-		lastnode->next->object = _point;
-		lastnode = lastnode->next;
-	}
+List<Object*>::node* ObjectManager::AddObject(Object* _point){
+	ObjectList.AddLast(_point);
 	//_point->Start();
-	_point->id = lastnode;
-	return lastnode;
+	_point->id = ObjectList.lastnode;
+	return ObjectList.lastnode;
 }
 
-void ObjectManager::DestroyObject(onode *_id){
-	if(!_id->prev){
-		if(!_id->next){
-			hnode = nullptr;
-			lastnode = nullptr;
-		}else{
-			hnode = _id->next;
-			_id->next->prev = nullptr;
-		}
-	}else{
-		if(!_id->next){
-			_id->prev->next = nullptr;
-			lastnode = _id->prev;
-		}else{
-			_id->next->prev = _id->prev;
-			_id->prev->next = _id->next;
-		}
-	}
-	_id->object->Destroy();
-	delete _id;
+void ObjectManager::DestroyObject(List<Object*>::node *_id){
+	if(DestroyList.IsData(_id))
+		return;
+	DestroyList.AddLast(_id);
 }
 
 void ObjectManager::Step(){
-	tempnode = hnode;
+	tempnode = ObjectList.hnode;
 	while(tempnode){
-		tempnode->object->Step();
+		//std::cout << tempnode << " "  << tempnode->next << "\n";		//Temp
+		//if(!tempnode)
+		//	std::cout << "NoTemp\n";		//Temp
+		//if(!tempnode->data)
+		//	std::cout << "NoData\n";		//Temp
+		tempnode->data->Step();
+		//std::cout << tempnode << " "  << tempnode->next << "\n";		//Temp
+		//if(!tempnode)
+		//	std::cout << "NoTemp\n";		//Temp
+		//if(!tempnode->data)
+		//	std::cout << "NoData\n";		//Temp
+		tempnode = tempnode->next;
+		//std::cout << "END\n";		//Temp
+	}
+		//std::cout << "EndEND\n";		//Temp
+}
+
+void ObjectManager::Draw(){
+	tempnode = ObjectList.hnode;
+	while(tempnode){
+		tempnode->data->Draw();
 		tempnode = tempnode->next;
 	}
 }
 
-void ObjectManager::Draw(){
-	tempnode = hnode;
+void ObjectManager::Destroy(){
+	List<List<Object*>::node*>::node* tempnode = DestroyList.hnode;
 	while(tempnode){
-		tempnode->object->Draw();
+		tempnode->data->data->Destroy();
+		ObjectList.RemoveData(tempnode->data);
 		tempnode = tempnode->next;
 	}
+	DestroyList.Clear();
 }
