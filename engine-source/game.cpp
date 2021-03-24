@@ -68,7 +68,7 @@ void Game::update(){
 
 void Game::render(){
 	// Clear Render
-	SDL_RenderClear(Renderer::renderer);
+	renderer->RenderStart();
 
 	// Prepare render
 	if (current_room)

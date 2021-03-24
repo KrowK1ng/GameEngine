@@ -75,21 +75,9 @@ void ObjectManager::DestroyObject(List<Object*>::node *_id){
 void ObjectManager::Step(){
 	tempnode = ObjectList.hnode;
 	while(tempnode){
-		//std::cout << tempnode << " "  << tempnode->next << "\n";		//Temp
-		//if(!tempnode)
-		//	std::cout << "NoTemp\n";		//Temp
-		//if(!tempnode->data)
-		//	std::cout << "NoData\n";		//Temp
 		tempnode->data->Step();
-		//std::cout << tempnode << " "  << tempnode->next << "\n";		//Temp
-		//if(!tempnode)
-		//	std::cout << "NoTemp\n";		//Temp
-		//if(!tempnode->data)
-		//	std::cout << "NoData\n";		//Temp
 		tempnode = tempnode->next;
-		//std::cout << "END\n";		//Temp
 	}
-		//std::cout << "EndEND\n";		//Temp
 }
 
 void ObjectManager::Draw(){

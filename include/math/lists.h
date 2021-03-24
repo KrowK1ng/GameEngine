@@ -16,6 +16,7 @@ class List{
 		
 		virtual void AddFirst(T _data);
 		virtual void AddLast(T _data);
+		virtual void AddAtNode(T _data, node* _node);
 		virtual void RemoveData(node* _node);
 		virtual void RemoveData(int _n);
 		virtual void RemoveData(T _data);
@@ -73,6 +74,17 @@ void List<T>::AddLast(T _data){
 		hnode = tempnode;
 	}
 	lastnode = tempnode;
+}
+
+template <class T>
+void List<T>::AddAtNode(T _data, node* _node){
+	node* tempnode = new node;
+	tempnode->data = _data;
+	tempnode->next = _node->next;
+	_node->next = tempnode;
+	if(!tempnode->next){
+		lastnode = tempnode;
+	}
 }
 
 template <class T>

@@ -1,6 +1,7 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 #include "gamelibs.h"
+#include "mathlib.h"
 
 class Renderer;
 class RenderObject;
@@ -10,7 +11,9 @@ class Renderer {
 	public:
 		Renderer();
 		int CreateWindow(char* _title, int _xpos, int _ypos, int _width, int _height, bool _fullscreen);
+		void RenderStart();
 		void RenderWindow();
+		void AddRenderObject(RenderObject* _obj);
 		void CloseWindow();
 		void AddSpriteToRender(int _depth,bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect* _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip);
 		void AddRectToRender(int _depth, int _x, int _y, int _w, int _h, int _r, int _g, int _b);
@@ -21,11 +24,11 @@ class Renderer {
 		int scale;
 		SDL_Window* window;
 	private :
-		struct snode{
-			RenderObject* sprite = nullptr;
+		/*struct RenderObj{
+			RenderObject* rObj = nullptr;
 			int depth;
-			snode* next = nullptr;
-		}* hnode,* tempnode,* prevnode;
+		}* hnode,* tempnode,* prevnode;*/
+		List<RenderObject*> RenderList;
 };
 
 class RenderObject {
@@ -33,6 +36,7 @@ class RenderObject {
 		RenderObject(){}
 		~RenderObject(){}
 		virtual void draw(){}
+		int depth;
 };
 
 class RenderSprite : public RenderObject {
