@@ -17,6 +17,7 @@ class Renderer {
 		void CloseWindow();
 		void AddSpriteToRender(int _depth,bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect* _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip);
 		void AddRectToRender(int _depth, int _x, int _y, int _w, int _h, int _r, int _g, int _b);
+		void AddTextToRender(int _depth, SDL_Texture* _texture, SDL_Rect _tRect);
 		//static void Render();
 		static SDL_Renderer* renderer;
 		static Renderer* self;
@@ -77,6 +78,20 @@ class RenderRectangle : public RenderObject {
 	private:
 		SDL_Rect* rect;
 		int r, g, b;
+};
+
+class RenderText : public RenderObject {
+	public:
+		RenderText(SDL_Texture* _texture, SDL_Rect _tRect);
+		~RenderText(){
+			SDL_DestroyTexture(texture);
+		}
+		void draw() override{
+			SDL_RenderCopy(Renderer::renderer, texture, NULL, &tRect);
+		}
+	private:
+		SDL_Texture* texture;
+		SDL_Rect tRect;
 };
 
 #endif

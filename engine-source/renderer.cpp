@@ -10,7 +10,9 @@ int Renderer::CreateWindow(char* _title, int _xpos, int _ypos, int _width, int _
 		printf("error initializing SDL: %s\n", SDL_GetError());
 		return 0;
 	}
-	
+
+	TTF_Init();			//TEMP
+
 	int flags = 0;
 	if(_fullscreen)
 		flags = SDL_WINDOW_FULLSCREEN;
@@ -95,10 +97,16 @@ void Renderer::AddRectToRender(int _depth, int _x, int _y, int _w, int _h, int _
 	tempSprite->depth = _depth;
 	AddRenderObject(tempSprite);
 }
+
+void Renderer::AddTextToRender(int _depth, SDL_Texture* _texture, SDL_Rect _tRect){
+	RenderText* tempText = new RenderText(_texture, _tRect);
+	tempText->depth = _depth;
+	AddRenderObject(tempText);
+}
 ////Render Sprite
 
 RenderSprite::RenderSprite(bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip)
-	: isComplex(_isComp), texture(_tex), sRect(_sRect), dRect(_dRect), angle(_ang), flipFlag(_flip), RenderObject()
+	: RenderObject(), isComplex(_isComp), texture(_tex), sRect(_sRect), dRect(_dRect), angle(_ang), flipFlag(_flip)
 {
 	dRect.x = (dRect.x - Renderer::self->xView) * Renderer::self->scale;
 	dRect.y = (dRect.y - Renderer::self->yView) * Renderer::self->scale;
@@ -116,11 +124,20 @@ RenderSprite::RenderSprite(bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SD
 };
 
 RenderRectangle::RenderRectangle(int _x, int _y, int _w, int _h, int _r, int _g, int _b)
-	: r(_r), g(_g), b(_b), RenderObject()
+	: RenderObject(), r(_r), g(_g), b(_b)
 {
 	rect = new SDL_Rect();
 	rect->x = (_x - Renderer::self->xView) * Renderer::self->scale;
 	rect->y = (_y - Renderer::self->yView) * Renderer::self->scale;
 	rect->w = _w * Renderer::self->scale;
 	rect->h = _h * Renderer::self->scale;
+}
+
+RenderText::RenderText(SDL_Texture* _texture, SDL_Rect _tRect)
+	: RenderObject(), texture(_texture)
+{
+	tRect.x = (_tRect.x - Renderer::self->xView) * Renderer::self->scale;
+	tRect.y = (_tRect.y - Renderer::self->yView) * Renderer::self->scale;
+	tRect.w = _tRect.w;
+	tRect.h = _tRect.h;
 }

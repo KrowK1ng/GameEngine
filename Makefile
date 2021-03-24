@@ -2,7 +2,7 @@
 CC := g++
 
 # Flags
-CFLAGS := `sdl2-config --libs` -lSDL2_image -lm -Wall
+CFLAGS := `sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lSDL2_ttf -lm -Wall
 
 # Source file
 ENGS := $(shell ls engine/temp/*.o)
