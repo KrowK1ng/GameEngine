@@ -12,6 +12,10 @@ int Renderer::CreateWindow(char* _title, int _xpos, int _ypos, int _width, int _
 	}
 
 	TTF_Init();			//TEMP
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 1, 2048) < 0){		//TEMP
+		printf("Error opening audio (remember to add error)\n");
+		return 0;
+	}
 
 	int flags = 0;
 	if(_fullscreen)
@@ -83,6 +87,8 @@ void Renderer::AddRenderObject(RenderObject* _obj){
 void Renderer::CloseWindow(){
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
+	Mix_Quit();
+	TTF_Quit();
 	SDL_Quit();
 }
 

@@ -1,3 +1,4 @@
+#include "audio.h"
 #include "collision.h"
 #include "engine.h"
 #include "game.h"

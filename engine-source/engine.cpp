@@ -97,7 +97,6 @@ namespace engine {
 	}
 
 	void DestroyObject(List<Object*>::node* _id){
-		std::cout << _id ;
 		Game::self->current_room->obj_manager->DestroyObject(_id);
 	}
 
