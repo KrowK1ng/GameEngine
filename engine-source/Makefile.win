@@ -1,0 +1,29 @@
+# Compiler
+CC := i686-w64-mingw32-g++
+
+# Flags
+CFLAGS := -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lm -Wall -mwindows -I../include
+
+# Source file
+SRCS := $(shell ls ../engine-source/*.cpp )
+TEMP := $(subst engine-source/,engine/win32-temp/,$(SRCS))
+OBJS := $(subst .cpp,.o,$(TEMP))
+#OBJS := $(subst .cpp,.o,$(SRCS))
+#OUTO := ../engine/game-engine.o
+
+# Output directory
+OUTDIR := ../engine/win32-temp/
+
+default: $(OBJS)
+
+$(OUTO): $(OBJS)
+	$(CC) $(CFLAGS) -c $(OBJS) -o $@
+
+$(OUTDIR)%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean: 
+	rm -rf $(OUTDIR)*.o 
+
+port:
+	rm -rf ../include/*.h && cp *.h ../include && ./include.sh

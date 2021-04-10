@@ -1,0 +1,24 @@
+# Compiler
+CC := i686-w64-mingw32-g++
+
+# Flags
+CFLAGS := -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lm -Wall -mwindows
+
+# Source file
+ENGS := $(shell ls engine/win32-temp/*.o)
+OBJS := $(shell scripts/get-win32-objects.sh)
+#OBJS_OBJS := $(shell cat $(OBJS) | sed "s/.cpp$/.o$/g;s/^src\/^temp\//")
+
+# Output directory
+EXEC := out/out.exe
+TEMPDIR := win32-temp/
+INCDIR := include/
+
+default: $(ENGS) $(OBJS)
+	$(CC) -I$(INCDIR) $(ENGS) $(OBJS) src/main.cpp include/objects/object_manager.cpp -o $(EXEC) $(CFLAGS)
+
+$(TEMPDIR)%.o: src/%.cpp
+	$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+
+clean: 
+	rm -rf $(TEMPDIR)*
