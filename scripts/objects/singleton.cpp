@@ -35,5 +35,6 @@ void PLACE_HOLDER_CLASS::Draw(){
 }
 
 void PLACE_HOLDER_CLASS::Destroy(){
+	sInstance = NULL;
 	delete this;
 }
