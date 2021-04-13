@@ -35,6 +35,8 @@ namespace engine{
 	//Rendering
 	int GetViewX();
 	int GetViewY();
+	int GetViewW();
+	int GetViewH();
 	void SetView(int _x, int _y);
 	void SetViewClean(int _x, int _y);
 	void SetViewCenter(int _x, int _y);

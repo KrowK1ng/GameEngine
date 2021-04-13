@@ -116,6 +116,14 @@ namespace engine {
 		return Renderer::self->yView;
 	}
 
+	int GetViewW(){
+		return Renderer::self->wView;
+	}
+	
+	int GetViewH(){
+		return Renderer::self->hView;
+	}
+
 	void SetView(int _x, int _y){
 		Renderer::self->xView = _x;
 		Renderer::self->yView = _y;
