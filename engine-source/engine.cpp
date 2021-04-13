@@ -181,6 +181,16 @@ namespace engine {
 		Renderer::self->AddTextToRender(_depth, tempTexture, Message);
 	}
 
+	void DrawTextExt(int _depth, int _x, int _y, int _halign, int _valign, TTF_Font *_font, std::string _text, Uint8 _r, Uint8 _g, Uint8 _b){
+		//SDL_Color tempColor = {_r, _g, _b};
+		SDL_Texture* tempTexture = TextureManager::LoadTextureText(_font, _text, {_r, _g, _b}, Renderer::renderer);
+		SDL_Rect Message;
+		SDL_QueryTexture(tempTexture, NULL, NULL, &Message.w, &Message.h);
+		Message.x = _x - (int)((float)_halign/2.0f * Message.w);
+		Message.y = _y - (int)((float)_valign/2.0f * Message.h);
+		Renderer::self->AddTextToRender(_depth, tempTexture, Message);
+	}
+
 	//Math
 	float GetAngle2Points(int _x1, int _y1, int _x2, int _y2){
 		return std::atan2(_y1 - _y2, _x1 - _x2) * 180 / 3.14;
