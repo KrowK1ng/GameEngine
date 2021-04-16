@@ -67,7 +67,8 @@ AnimatedSprite::AnimatedSprite(const char* _source, int _w, int _h, int _x, int 
 	scale = 1;
 	width = _w;
 	frames = _frames;
-	speed = _speed;
+	time = _speed;
+	speed = 1;
 	frame_counter = 0;
 }
 
@@ -89,10 +90,14 @@ void AnimatedSprite::Render(int _x, int _y, int _depth){
 }
 
 void AnimatedSprite::ChangeImageSpeed(int _speed){
-	if(speed == _speed)
-		return;
-	frame_counter = (frame_counter / speed) * speed;
 	speed = _speed;
+}
+
+void AnimatedSprite::ChangeImageTime(int _time){
+	if(time == _time)
+		return;
+	frame_counter = (frame_counter / time) * time;
+	time = _time;
 }
 
 void AnimatedSprite::ChangeImageFrame(int _frame){
@@ -105,9 +110,9 @@ void AnimatedSprite::RenderExt(int _x, int _y, int _angle, SDL_RendererFlip _fli
 
 void AnimatedSprite::RenderExt(int _x, int _y, int _depth, int _angle, SDL_RendererFlip _flip){
 	// Frames and stuff
-	frame_counter++;
-	frame_counter = frame_counter % (speed * frames);
-	int _frame = frame_counter / speed;
+	frame_counter += speed;
+	frame_counter = frame_counter % (time * frames);
+	int _frame = frame_counter / time;
 
 	sRect->x = _frame * width;
 	dRect->x = _x;
@@ -117,5 +122,5 @@ void AnimatedSprite::RenderExt(int _x, int _y, int _depth, int _angle, SDL_Rende
 }
 
 bool AnimatedSprite::isEnd(){
-	return (frame_counter == (speed * frames) - 1);
+	return (frame_counter == (time * frames) - 1);
 }

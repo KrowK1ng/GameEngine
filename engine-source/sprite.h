@@ -27,7 +27,7 @@ class Sprite{
 
 class AnimatedSprite : public Sprite{
 	private:
-		int width, speed, frames, frame_counter;
+		int width, time, speed, frames, frame_counter;
 	public:
 		AnimatedSprite(){}
 		AnimatedSprite(const char* _source, int _w, int _h, int _x, int _y, int _xoff, int _yoff, int _scale, int _speed, int _frames);
@@ -36,6 +36,7 @@ class AnimatedSprite : public Sprite{
 		void RenderExt(int _x, int _y, int _angle, SDL_RendererFlip _flip);
 		void RenderExt(int _x, int _y, int _depth, int _angle, SDL_RendererFlip _flip);
 		void ChangeImageSpeed(int _speed);
+		void ChangeImageTime(int _time);
 		void ChangeImageFrame(int _frame);
 		bool isEnd();
 		
