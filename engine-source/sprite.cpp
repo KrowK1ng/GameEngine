@@ -78,9 +78,9 @@ void AnimatedSprite::Render(int _x, int _y){
 
 void AnimatedSprite::Render(int _x, int _y, int _depth){
 	// Frames and stuff
-	frame_counter++;
-	frame_counter = frame_counter % (speed * frames);
-	int _frame = frame_counter / speed;
+	frame_counter += speed;
+	frame_counter = frame_counter % (time * frames);
+	int _frame = frame_counter / time;
 
 	sRect->x = _frame * width;
 	dRect->x = _x;
@@ -101,7 +101,7 @@ void AnimatedSprite::ChangeImageTime(int _time){
 }
 
 void AnimatedSprite::ChangeImageFrame(int _frame){
-	frame_counter = (_frame % frames) * speed;
+	frame_counter = (_frame % frames) * time;
 }
 
 void AnimatedSprite::RenderExt(int _x, int _y, int _angle, SDL_RendererFlip _flip){
