@@ -52,11 +52,21 @@ List<Object*>::node* Object::GetHeadNode(){
 }
 
 ObjectManager::ObjectManager(){
+	tempnode = ObjectList.hnode;
+	while(tempnode){
+		delete tempnode->data;
+		tempnode = tempnode->next;
+	}
 }
 
 ObjectManager::~ObjectManager(){
-	delete &ObjectList;
-	delete &DestroyList;
+	tempnode = ObjectList.hnode;
+	while(tempnode){
+		delete tempnode->data;
+		tempnode = tempnode->next;
+	}
+	ObjectList.Clear();
+	DestroyList.Clear();
 }
 
 List<Object*>::node* ObjectManager::AddObject(Object* _point){
