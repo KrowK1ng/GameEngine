@@ -4,6 +4,7 @@ Sprite::Sprite(const char* _source, int _w, int _h, int _x, int _y, int _xoff, i
 	sRect = new SDL_Rect();
 	dRect = new SDL_Rect();
 	offset = new SDL_Point();
+	source = _source;
 	sRect->x = _x;
 	sRect->y = _y;
 	sRect->w = _w;
@@ -40,6 +41,10 @@ void Sprite::RenderExt(int _x, int _y, int _depth, int _angle, SDL_RendererFlip 
 	dRect->y = _y;
 	SDL_Rect *tempRect = new SDL_Rect(*dRect);
 	Renderer::self->AddSpriteToRender(_depth, true, texture, sRect, tempRect , _angle,  offset, _flip);
+}
+
+void Sprite::SetAlpha(Uint8 _alpha){
+	texture = TextureManager::LoadTexture(source.c_str(), Renderer::self->renderer, _alpha);
 }
 
 AnimatedSprite::AnimatedSprite(const char* _source, int _w, int _h, int _x, int _y, int _xoff, int _yoff, int _scale, int _speed, int _frames) {

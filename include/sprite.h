@@ -5,6 +5,8 @@
 #include "texturemanager.h"
 
 class Sprite{
+	protected:
+		std::string source;
 	public:
 		Sprite(){}
 		Sprite(const char* _source, int _w, int _h, int _x, int _y, int _xoff, int _yoff, int _scale);
@@ -12,6 +14,8 @@ class Sprite{
 		virtual void Render(int _x, int _y, int _depth);
 		virtual void RenderExt(int _x, int _y, int _angle, SDL_RendererFlip _flip);
 		virtual void RenderExt(int _x, int _y, int _depth, int _angle, SDL_RendererFlip _flip);
+
+		virtual void SetAlpha(Uint8 _alpha);
 
 		SDL_Texture* texture;
 		SDL_Rect* sRect;
