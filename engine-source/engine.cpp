@@ -166,9 +166,13 @@ namespace engine {
 	}
 
 	//Drawing
+	void DrawSetColor(int _depth, Uint8 r, Uint8 g, Uint8 b){
+		Renderer::self->AddColorToRender(_depth, r, g, b);
+	}
+
 	void DrawRectangle(int _depth, int _x, int _y, int _w, int _h){
 		using j = Renderer;
-		j::self->AddRectToRender(_depth, _x, _y, _w, _h, 0, 0, 0);
+		j::self->AddRectToRender(_depth, _x, _y, _w, _h);
 	}
 
 	void DrawText(int _depth, int _x, int _y, TTF_Font *_font, std::string _text, Uint8 _r, Uint8 _g, Uint8 _b){

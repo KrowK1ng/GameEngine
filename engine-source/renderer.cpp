@@ -98,8 +98,8 @@ void Renderer::AddSpriteToRender(int _depth,bool _isComp, SDL_Texture* _tex, SDL
 	AddRenderObject(tempSprite);
 }
 
-void Renderer::AddRectToRender(int _depth, int _x, int _y, int _w, int _h, int _r, int _g, int _b){
-	RenderRectangle* tempSprite = new RenderRectangle(_x, _y, _w, _h, _r, _g, _b);
+void Renderer::AddRectToRender(int _depth, int _x, int _y, int _w, int _h){
+	RenderRectangle* tempSprite = new RenderRectangle(_x, _y, _w, _h);
 	tempSprite->depth = _depth;
 	AddRenderObject(tempSprite);
 }
@@ -108,6 +108,12 @@ void Renderer::AddTextToRender(int _depth, SDL_Texture* _texture, SDL_Rect _tRec
 	RenderText* tempText = new RenderText(_texture, _tRect);
 	tempText->depth = _depth;
 	AddRenderObject(tempText);
+}
+
+void Renderer::AddColorToRender(int _depth, Uint8 _r, Uint8 _g, Uint8 _b){
+	RenderColor* tempColor = new RenderColor(_r, _g, _b);
+	tempColor->depth = _depth;
+	AddRenderObject(tempColor);
 }
 ////Render Sprite
 
@@ -129,8 +135,8 @@ RenderSprite::RenderSprite(bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SD
 	//offset.y *= Renderer::self->scale;
 };
 
-RenderRectangle::RenderRectangle(int _x, int _y, int _w, int _h, int _r, int _g, int _b)
-	: RenderObject(), r(_r), g(_g), b(_b)
+RenderRectangle::RenderRectangle(int _x, int _y, int _w, int _h)
+	: RenderObject()
 {
 	rect = new SDL_Rect();
 	rect->x = (_x - Renderer::self->xView) * Renderer::self->scale;
@@ -147,3 +153,7 @@ RenderText::RenderText(SDL_Texture* _texture, SDL_Rect _tRect)
 	tRect.w = _tRect.w;
 	tRect.h = _tRect.h;
 }
+
+RenderColor::RenderColor(Uint8 _r, Uint8 _g, Uint8 _b)
+	: r(_r), g(_g), b(_b)
+{}

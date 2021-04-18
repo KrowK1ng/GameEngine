@@ -2,6 +2,7 @@
 #define RENDERER_H
 #include "gamelibs.h"
 #include "mathlib.h"
+#include <SDL2/SDL_render.h>
 
 class Renderer;
 class RenderObject;
@@ -16,8 +17,9 @@ class Renderer {
 		void AddRenderObject(RenderObject* _obj);
 		void CloseWindow();
 		void AddSpriteToRender(int _depth,bool _isComp, SDL_Texture* _tex, SDL_Rect* _sRect, SDL_Rect* _dRect, double _ang, SDL_Point* _offset, SDL_RendererFlip _flip);
-		void AddRectToRender(int _depth, int _x, int _y, int _w, int _h, int _r, int _g, int _b);
+		void AddRectToRender(int _depth, int _x, int _y, int _w, int _h);
 		void AddTextToRender(int _depth, SDL_Texture* _texture, SDL_Rect _tRect);
+		void AddColorToRender(int _depth, Uint8 _r, Uint8 _g, Uint8 _b);
 		//static void Render();
 		static SDL_Renderer* renderer;
 		static Renderer* self;
@@ -25,10 +27,6 @@ class Renderer {
 		int scale;
 		SDL_Window* window;
 	private :
-		/*struct RenderObj{
-			RenderObject* rObj = nullptr;
-			int depth;
-		}* hnode,* tempnode,* prevnode;*/
 		List<RenderObject*> RenderList;
 };
 
@@ -66,18 +64,16 @@ class RenderSprite : public RenderObject {
 
 class RenderRectangle : public RenderObject {
 	public:
-		RenderRectangle(int _x, int _y, int _w, int _h, int _r, int _g, int _b);
+		RenderRectangle(int _x, int _y, int _w, int _h);
 		~RenderRectangle(){
 			delete rect;
 		}
 		void draw() override{
 			//Temp
-			SDL_SetRenderDrawColor(Renderer::renderer, r, g, b, 255);
 			SDL_RenderFillRect(Renderer::renderer, rect);
 		}
 	private:
 		SDL_Rect* rect;
-		int r, g, b;
 };
 
 class RenderText : public RenderObject {
@@ -92,6 +88,18 @@ class RenderText : public RenderObject {
 	private:
 		SDL_Texture* texture;
 		SDL_Rect tRect;
+};
+
+class RenderColor : public RenderObject {
+	public:
+		RenderColor(Uint8 _r, Uint8 _g, Uint8 _b);
+		~RenderColor(){
+		}
+		void draw() override{
+			SDL_SetRenderDrawColor(Renderer::renderer, r, g, b, 255);
+		}
+	private:
+		Uint8 r, g, b;
 };
 
 #endif

@@ -43,6 +43,7 @@ namespace engine{
 	void SetFullscreen();
 
 	//Drawing
+	void DrawSetColor(int _depth, Uint8 r, Uint8 g, Uint8 b);
 	void DrawRectangle(int _depth, int _x, int _y, int _w, int _h);
 	void DrawText(int _depth, int _x, int _y, TTF_Font* _font, std::string _text, Uint8 _r, Uint8 _g, Uint8 _b);
 	void DrawTextExt(int _depth, int _x, int _y, int _halign, int _valign, TTF_Font *_font, std::string _text, Uint8 _r, Uint8 _g, Uint8 _b);
