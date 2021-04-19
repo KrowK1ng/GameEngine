@@ -176,18 +176,24 @@ namespace engine {
 	}
 
 	void DrawText(int _depth, int _x, int _y, TTF_Font *_font, std::string _text, Uint8 _r, Uint8 _g, Uint8 _b){
-		//SDL_Color tempColor = {_r, _g, _b};
-		SDL_Texture* tempTexture = TextureManager::LoadTextureText(_font, _text, {_r, _g, _b}, Renderer::renderer);
-		SDL_Rect Message;
-		Message.x = _x;
-		Message.y = _y;
-		SDL_QueryTexture(tempTexture, NULL, NULL, &Message.w, &Message.h);
-		Renderer::self->AddTextToRender(_depth, tempTexture, Message);
+		DrawTextExt(_depth, _x, _y, 0, 0, _font, _text, _r, _g, _b);
 	}
 
 	void DrawTextExt(int _depth, int _x, int _y, int _halign, int _valign, TTF_Font *_font, std::string _text, Uint8 _r, Uint8 _g, Uint8 _b){
-		//SDL_Color tempColor = {_r, _g, _b};
 		SDL_Texture* tempTexture = TextureManager::LoadTextureText(_font, _text, {_r, _g, _b}, Renderer::renderer);
+		SDL_Rect Message;
+		SDL_QueryTexture(tempTexture, NULL, NULL, &Message.w, &Message.h);
+		Message.x = _x - (int)((float)_halign/2.0f * Message.w);
+		Message.y = _y - (int)((float)_valign/2.0f * Message.h);
+		Renderer::self->AddTextToRender(_depth, tempTexture, Message);
+	}
+
+	void DrawTextTran(int _depth, int _x, int _y, int _width, TTF_Font *_font, std::string _text, Uint8 _r, Uint8 _g, Uint8 _b){
+		DrawTextTranExt(_depth, _x, _y, _width, 0, 0, _font, _text, _r, _g, _b);
+	}
+
+	void DrawTextTranExt(int _depth, int _x, int _y, int _width, int _halign, int _valign, TTF_Font *_font, std::string _text, Uint8 _r, Uint8 _g, Uint8 _b){
+		SDL_Texture* tempTexture = TextureManager::LoadTextureTextTran(_font, _width, _text, {_r, _g, _b}, Renderer::renderer);
 		SDL_Rect Message;
 		SDL_QueryTexture(tempTexture, NULL, NULL, &Message.w, &Message.h);
 		Message.x = _x - (int)((float)_halign/2.0f * Message.w);
