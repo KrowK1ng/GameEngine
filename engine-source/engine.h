@@ -50,6 +50,9 @@ namespace engine{
 	void DrawTextTran(int _depth, int _x, int _y, int _width, TTF_Font *_font, std::string _text, Uint8 _r, Uint8 _g, Uint8 _b);
 	void DrawTextTranExt(int _depth, int _x, int _y, int _width, int _halign, int _valign, TTF_Font *_font, std::string _text, Uint8 _r, Uint8 _g, Uint8 _b);
 
+	//Text
+	int TextGetHeightTran(int _width, TTF_Font* _font, std::string _text);
+
 	//Math
 	float GetAngle2Points(int _x1, int _y1, int _x2, int _y2);
 	bool PointOutsideRoom(int _x, int _y);

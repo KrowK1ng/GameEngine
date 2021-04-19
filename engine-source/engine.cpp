@@ -201,6 +201,14 @@ namespace engine {
 		Renderer::self->AddTextToRender(_depth, tempTexture, Message);
 	}
 
+	//Text
+	int TextGetHeightTran(int _width, TTF_Font *_font, std::string _text){
+		SDL_Texture* tempTexture = TextureManager::LoadTextureTextTran(_font, _width, _text, {0, 0, 0}, Renderer::renderer);
+		int height;
+		SDL_QueryTexture(tempTexture, NULL, NULL, NULL, &height);
+		return height;
+	}
+
 	//Math
 	float GetAngle2Points(int _x1, int _y1, int _x2, int _y2){
 		return std::atan2(_y1 - _y2, _x1 - _x2) * 180 / 3.14;
